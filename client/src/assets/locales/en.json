@@ -1,0 +1,12 @@
+{
+  "translation": {
+    "search_placeholder": "Search anything",
+    "account": "Account",
+    "friend_request": "Friend request",
+    "notification": "Notification",
+    "message": "Message",
+    "me": "My profile",
+    "language": "Language",
+    "log_out": "Log out"
+  }
+}
