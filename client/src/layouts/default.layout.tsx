@@ -1,10 +1,16 @@
+import Header from '@/components/header'
+import Sidebar from '@/components/sidebar'
+import Wrapper from '@/components/wrapper'
 import { Outlet } from 'react-router-dom'
 
 export default function DefaultLayout() {
   return (
-    <div>
-      Default Layout
-      <Outlet />
-    </div>
+    <Wrapper className='flex bg-secondary'>
+      <Sidebar />
+      <div className='flex flex-col w-full'>
+        <Header />
+        <Outlet />
+      </div>
+    </Wrapper>
   )
 }

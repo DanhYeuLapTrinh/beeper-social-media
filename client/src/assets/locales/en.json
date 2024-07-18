@@ -7,6 +7,16 @@
     "message": "Message",
     "me": "My profile",
     "language": "Language",
-    "log_out": "Log out"
+    "log_out": "Log out",
+    "community": "Community",
+    "my_community": "My community",
+    "explore_your_community": "Explore your community",
+    "upcomming_event": "Upcoming event",
+    "feed": "Feed",
+    "event": "Event",
+    "watch": "Watch",
+    "marketplace": "Marketplace",
+    "explore": "Explore",
+    "friends": "Friends"
   }
 }
