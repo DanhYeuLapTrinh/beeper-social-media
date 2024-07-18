@@ -1,17 +1,17 @@
-import ClerkLayout from '@/layouts/clerk.layout'
+import AppLayout from '@/layouts/app.layout'
+import AuthLayout from '@/layouts/auth.layout'
 import DefaultLayout from '@/layouts/default.layout'
 import GuardLayout from '@/layouts/guard.layout'
 import Home from '@/pages/home'
-import SignIn from '@/pages/sign-in'
-import AuthLayout from '@/layouts/auth.layout'
-import SignUp from '@/pages/sign-up'
 import NotFound from '@/pages/not-found'
+import Signin from '@/features/auth/signin/signin'
+import Signup from '@/features/auth/signup/signup'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { ROUTES } from '.'
 
 const router = createBrowserRouter([
   {
-    element: <ClerkLayout />,
+    element: <AppLayout />,
     children: [
       {
         index: true,
@@ -65,11 +65,11 @@ const router = createBrowserRouter([
           },
           {
             path: ROUTES.PUBLIC.SIGN_IN,
-            element: <SignIn />
+            element: <Signin />
           },
           {
             path: ROUTES.PUBLIC.SIGN_UP,
-            element: <SignUp />
+            element: <Signup />
           }
         ]
       }

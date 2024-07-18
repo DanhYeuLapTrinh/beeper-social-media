@@ -1,3 +1,4 @@
+import { ROUTES } from '@/router'
 import { ClerkProvider as ClerkAuthProvider } from '@clerk/clerk-react'
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -8,7 +9,7 @@ if (!PUBLISHABLE_KEY) {
 
 export default function ClerkProvider({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkAuthProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl='/'>
+    <ClerkAuthProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl={ROUTES.PUBLIC.AUTH}>
       {children}
     </ClerkAuthProvider>
   )
