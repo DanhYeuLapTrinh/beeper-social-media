@@ -1,12 +1,22 @@
 {
   "translation": {
     "account": "Tài khoản",
+    "community": "Cộng đồng",
+    "event": "Sự kiện",
+    "explore": "Khám phá",
+    "explore_your_community": "Khám phá cộng đồng của bạn",
+    "feed": "Feed",
     "friend_request": "Lời mời kết bạn",
+    "friends": "Bạn bè",
     "language": "Ngôn ngữ",
     "log_out": "Đăng xuất",
+    "marketplace": "Marketplace",
     "me": "Trang cá nhân",
     "message": "Tin nhắn",
+    "my_community": "Cộng đồng của tôi",
     "notification": "Thông báo",
-    "search_placeholder": "Tìm kiếm"
+    "search_placeholder": "Tìm kiếm",
+    "upcomming_event": "Sự kiện sắp tới",
+    "watch": "Xem"
   }
 }
