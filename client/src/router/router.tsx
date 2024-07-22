@@ -1,11 +1,14 @@
+import ForgotPassword from '@/features/auth/forgot-password/forgot-password-form.provider'
+import Signin from '@/features/auth/signin/signin-form.provider'
 import AppLayout from '@/layouts/app.layout'
 import AuthLayout from '@/layouts/auth.layout'
 import DefaultLayout from '@/layouts/default.layout'
 import GuardLayout from '@/layouts/guard.layout'
 import Home from '@/pages/home'
 import NotFound from '@/pages/not-found'
-import Signin from '@/features/auth/signin/signin'
-import Signup from '@/features/auth/signup/signup'
+import SSOCallback from '@/pages/sso-callback'
+import OTPForm from '@/features/auth/otp/otp-form'
+import ResetPassword from '@/features/auth/reset-password/reset-password-form.provider'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { ROUTES } from '.'
 
@@ -44,6 +47,10 @@ const router = createBrowserRouter([
                 element: <p>Watch</p>
               },
               {
+                path: ROUTES.PRIVATE.MARKETPLACE,
+                element: <p>Marketplace</p>
+              },
+              {
                 path: ROUTES.PRIVATE.BY_COMMUNITIES,
                 element: <p>By Communities</p>
               },
@@ -69,9 +76,25 @@ const router = createBrowserRouter([
           },
           {
             path: ROUTES.PUBLIC.SIGN_UP,
-            element: <Signup />
+            element: <p>Signup</p>
+          },
+          {
+            path: ROUTES.PUBLIC.FORGOT_PASSWORD,
+            element: <ForgotPassword />
+          },
+          {
+            path: ROUTES.PUBLIC.OTP_VERIFICATION,
+            element: <OTPForm />
+          },
+          {
+            path: ROUTES.PUBLIC.RESET_PASSWORD,
+            element: <ResetPassword />
           }
         ]
+      },
+      {
+        path: ROUTES.PUBLIC.SSO_CALLBACK,
+        element: <SSOCallback />
       }
     ]
   }

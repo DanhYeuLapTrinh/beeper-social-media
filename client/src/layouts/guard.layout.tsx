@@ -8,9 +8,9 @@ export default function GuardLayout() {
 
   if (!isLoaded) {
     return <PageLoader />
-  } else if (isLoaded && !userId) {
+  } else if (!userId) {
     return <Navigate to={ROUTES.PUBLIC.AUTH} replace />
-  } else if (isLoaded && userId) {
+  } else {
     return <Outlet />
   }
 }
