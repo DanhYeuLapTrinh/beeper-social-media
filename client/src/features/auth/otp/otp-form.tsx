@@ -3,6 +3,7 @@ import AuthIcons from '../_components/icons'
 import { Button } from '@/components/ui/button'
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/components/ui/input-otp'
 import { Label } from '@/components/ui/label'
+import { LOCAL_STORAGE_KEYS } from '@/constants'
 import { useOAuthSignin } from '@/hooks/use-oauth-signin'
 import { usePassword } from '@/hooks/use-password'
 import { useThrottle } from '@/hooks/use-throttle'
@@ -12,12 +13,14 @@ import { ROUTES } from '@/router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate } from 'react-router-dom'
+import { useLocalStorage } from 'usehooks-ts'
 
 export default function OTPForm() {
   const [otp, setOtp] = useState('')
-  const { verifyEmailCode, createEmailCode, isLoading, value } = usePassword()
+  const [value, setValue, removeValue] = useLocalStorage(LOCAL_STORAGE_KEYS.EMAIL_TEMP, '')
+  const { verifyEmailCode, createEmailCode, isLoading } = usePassword()
   const { handleSignin } = useOAuthSignin()
-  const { successfulFirstFactor } = useAppSelector((state) => state.password)
+  const { successfulFirstFactor, successfulCreation } = useAppSelector((state) => state.password)
   const { t } = useTranslation()
   const { handleClick, isDisabled, seconds } = useThrottle(30)
 
@@ -30,9 +33,12 @@ export default function OTPForm() {
     if (otp.length === 6) {
       verifyEmailCode(otp)
     }
+    if (!successfulFirstFactor && !successfulCreation) {
+      removeValue()
+    }
   }, [otp])
 
-  if (!successfulFirstFactor) {
+  if (!successfulFirstFactor && successfulCreation) {
     return (
       <div className='flex flex-col items-center w-96 gap-3 px-2'>
         <AuthIcons type='mail' />
@@ -42,7 +48,7 @@ export default function OTPForm() {
           <Label className='font-normal text-xs text-center mb-8'>{maskEmail(value)}</Label>
         </div>
         <form className='w-full flex flex-col items-center'>
-          <InputOTP maxLength={6} onChange={(e: string) => setOtp(e)}>
+          <InputOTP maxLength={6} onChange={(e: string) => setOtp(e)} autoFocus={true}>
             <InputOTPGroup>
               <InputOTPSlot index={0} />
               <InputOTPSlot index={1} />
@@ -59,14 +65,22 @@ export default function OTPForm() {
             <Label className='text-xs'>{isDisabled ? t('resend_code') + ` (${seconds})` : t('resend_code')}</Label>
           </Button>
           <Actions
-            type='otp'
-            otpFunction={() => verifyEmailCode(otp)}
+            type='1'
+            firstTitle='continue'
+            firstFunction={() => verifyEmailCode(otp)}
             isLoading={isLoading}
             disabled={isLoading || !(otp.length === 6)}
           />
         </form>
         <Label className='text-muted-foreground text-xs'>{t('or')}</Label>
-        <Actions type='social' isLoading={false} googleFunction={() => handleSignin('oauth_apple')} />
+        <Actions
+          type='social'
+          isLoading={false}
+          firstTitle='continue_with_google'
+          secondTitle='continue_with_facebook'
+          firstFunction={() => handleSignin('oauth_apple')}
+          secondFunction={() => handleSignin('oauth_facebook')}
+        />
       </div>
     )
   } else {

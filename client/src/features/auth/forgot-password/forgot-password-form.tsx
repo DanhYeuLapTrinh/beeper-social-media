@@ -22,6 +22,7 @@ export default function ForgotPasswordForm() {
             name={field.name}
             register={register}
             errors={errors}
+            autoFocus={field.autoFocus}
           />
         )
       })}

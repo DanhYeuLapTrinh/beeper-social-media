@@ -1,5 +1,6 @@
 import { useToast } from '@/components/ui/use-toast'
 import { ERROR_MESSAGES } from '@/constants'
+import { getClerkError } from '@/lib/utils'
 import { ClerkError } from '@/models/error.model'
 import { loginSchema } from '@/models/schemas/auth.schema'
 import { ROUTES } from '@/router'
@@ -7,6 +8,7 @@ import { useSignIn } from '@clerk/clerk-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
@@ -22,6 +24,7 @@ export const useSignin = () => {
   const [isLoading, setIsLoading] = useState(false)
   const { isLoaded, signIn, setActive } = useSignIn()
   const { toast } = useToast()
+  const { t } = useTranslation()
 
   const onSubmit: SubmitHandler<LoginFormValues> = async ({ identifier, password }) => {
     if (!isLoaded) {
@@ -45,7 +48,7 @@ export const useSignin = () => {
       const err = JSON.parse(JSON.stringify(error)) as ClerkError
       toast({
         title: ERROR_MESSAGES.OOPS,
-        description: err.errors[0].longMessage
+        description: t(getClerkError(err.errors[0].code))
       })
       setIsLoading(false)
       methods.resetField('password')

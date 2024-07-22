@@ -1,6 +1,8 @@
 {
   "translation": {
     "account": "Tài khoản",
+    "account_not_found": "Không thể tìm thấy tài khoản của bạn.",
+    "already_have_an_account": "Đã có tài khoản?",
     "back": "Quay về",
     "community": "Cộng đồng",
     "confirm_password": "Xác nhận mật khẩu",
@@ -9,6 +11,7 @@
     "continue_with_google": "Tiếp tục với Google",
     "dont_have_an_account": "Chưa có tài khoản?",
     "email": "Email",
+    "email_invalid": "Vui lòng nhập một địa chỉ email hợp lệ",
     "email_sent": "Email đã được gửi",
     "email_sent_desc": "Vui lòng kiểm tra email của bạn để biết mã xác minh",
     "event": "Sự kiện",
@@ -22,6 +25,8 @@
     "identifier": "Email hoặc tên đăng nhập",
     "identifier_length_invalid": "Email hoặc tên người dùng phải từ 4 đến 50 ký tự",
     "identifier_required": "Email hoặc tên người dùng là bắt buộc",
+    "incorrect_code": "Mã không chính xác",
+    "incorrect_password": "Mật khẩu không đúng. Hãy thử lại hoặc sử dụng phương pháp khác.",
     "language": "Ngôn ngữ",
     "log_out": "Đăng xuất",
     "marketplace": "Marketplace",
@@ -47,6 +52,7 @@
     "sign_in_to_beeper": "Đăng nhập vào Beeper",
     "sign_out_all": "Đăng xuất khỏi tất cả các thiết bị",
     "sign_up": "Đăng ký",
+    "something_went_wrong": "Đã xảy ra lỗi. Vui lòng thử lại sau.",
     "upcomming_event": "Sự kiện sắp tới",
     "watch": "Xem",
     "welcome_signin": "Chào mừng trở lại! Đăng nhập để tiếp tục"

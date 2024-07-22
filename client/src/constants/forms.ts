@@ -36,7 +36,8 @@ export const USER_FORGOT_PASSWORD_FORM: UserFormType[] = [
     inputType: 'input',
     label: 'email',
     placeholder: 'example@gmail.com',
-    name: 'email'
+    name: 'email',
+    autoFocus: true
   }
 ]
 
