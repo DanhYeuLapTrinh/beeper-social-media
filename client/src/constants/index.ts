@@ -20,5 +20,5 @@ export const ERROR_MESSAGES = {
     INVALID_CODE: 'Invalid code',
     RESET_PASSWORD_FAILED: 'Failed to reset password'
   },
-  OOPS: 'Oops! Something went wrong'
+  OOPS: 'Oops!'
 }

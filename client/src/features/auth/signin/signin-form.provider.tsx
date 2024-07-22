@@ -37,7 +37,14 @@ export default function SigninFormProvider() {
         </form>
         <Label className='text-muted-foreground text-xs'>{t('or')}</Label>
         {/* TODO: Login with Facebook*/}
-        <Actions type='social' isLoading={false} googleFunction={() => handleSignin('oauth_apple')} />
+        <Actions
+          type='social'
+          isLoading={false}
+          firstTitle='continue_with_google'
+          secondTitle='continue_with_facebook'
+          firstFunction={() => handleSignin('oauth_apple')}
+          secondFunction={() => handleSignin('oauth_facebook')}
+        />
         <div className='flex items-center gap-1 mt-10 mb-4'>
           <Label className='font-normal'>{t('dont_have_an_account')}</Label>
           <Link

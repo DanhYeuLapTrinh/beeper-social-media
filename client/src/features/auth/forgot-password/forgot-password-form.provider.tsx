@@ -2,13 +2,14 @@ import Actions from '../_components/actions'
 import AuthIcons from '../_components/icons'
 import ForgotPasswordForm from './forgot-password-form'
 import { useOAuthSignin } from '@/hooks/use-oauth-signin'
-import { Label } from '@/components/ui/label'
+import { Label, labelVariants } from '@/components/ui/label'
 import { usePassword } from '@/hooks/use-password'
 import { useAppSelector } from '@/lib/redux-toolkit/hooks'
 import { ROUTES } from '@/router'
 import { FormProvider } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { cn } from '@/lib/utils'
 
 export default function ForgotPasswordFormProvider() {
   const { createEmailCode, isLoading, forgotMethods } = usePassword()
@@ -30,10 +31,26 @@ export default function ForgotPasswordFormProvider() {
             onSubmit={forgotMethods.handleSubmit((data) => createEmailCode(data))}
           >
             <ForgotPasswordForm />
-            <Actions type='forgot-password' isLoading={isLoading} />
+            <Actions type='1' isLoading={isLoading} firstTitle='send_verification_code' />
           </form>
           <Label className='text-muted-foreground text-xs'>{t('or')}</Label>
-          <Actions type='social' isLoading={false} googleFunction={() => handleSignin('oauth_apple')} />
+          <Actions
+            type='social'
+            isLoading={false}
+            firstTitle='continue_with_google'
+            secondTitle='continue_with_facebook'
+            firstFunction={() => handleSignin('oauth_apple')}
+            secondFunction={() => handleSignin('oauth_facebook')}
+          />
+          <div className='flex items-center gap-1 mt-10 mb-4'>
+            <Label className='font-normal'>{t('already_have_an_account')}</Label>
+            <Link
+              to={ROUTES.PUBLIC.AUTH + '/' + ROUTES.PUBLIC.SIGN_IN}
+              className={cn(labelVariants(), 'text-primary font-semibold')}
+            >
+              {t('sign_in')}
+            </Link>
+          </div>
         </div>
       </FormProvider>
     )

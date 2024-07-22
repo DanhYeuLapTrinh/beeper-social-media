@@ -28,3 +28,16 @@ export function maskEmail(email: string) {
   const maskedLocalPart = localPart.substring(0, 4) + '****'
   return `${maskedLocalPart}@${domain}`
 }
+
+export function getClerkError(code: string) {
+  switch (code) {
+    case 'form_code_incorrect':
+      return 'incorrect_code'
+    case 'form_password_incorrect':
+      return 'incorrect_password'
+    case 'form_identifier_not_found':
+      return 'account_not_found'
+    default:
+      return 'something_went_wrong'
+  }
+}

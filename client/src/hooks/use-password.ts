@@ -2,6 +2,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { ERROR_MESSAGES, LOCAL_STORAGE_KEYS } from '@/constants'
 import { useAppDispatch } from '@/lib/redux-toolkit/hooks'
 import { setSuccessfulCreation, setSuccessfulFirstFactor } from '@/lib/redux-toolkit/slices/password.slice'
+import { getClerkError } from '@/lib/utils'
 import { ClerkError } from '@/models/error.model'
 import { forgotPasswordSchema, resetPasswordSchema } from '@/models/schemas/auth.schema'
 import { useSignIn } from '@clerk/clerk-react'
@@ -51,7 +52,7 @@ export const usePassword = () => {
       const err = JSON.parse(JSON.stringify(error)) as ClerkError
       toast({
         title: ERROR_MESSAGES.OOPS,
-        description: err.errors[0].longMessage
+        description: t(getClerkError(err.errors[0].code))
       })
       setIsLoading(false)
       forgotMethods.reset()
@@ -75,7 +76,7 @@ export const usePassword = () => {
       const err = JSON.parse(JSON.stringify(error)) as ClerkError
       toast({
         title: ERROR_MESSAGES.OOPS,
-        description: err.errors[0].longMessage
+        description: t(getClerkError(err.errors[0].code))
       })
       setIsLoading(false)
     }
@@ -95,13 +96,13 @@ export const usePassword = () => {
         setActive({ session: result.createdSessionId })
       }
       setIsLoading(false)
-      dispatch(setSuccessfulCreation(false))
-      dispatch(setSuccessfulFirstFactor(false))
+      // dispatch(setSuccessfulCreation(false))
+      // dispatch(setSuccessfulFirstFactor(false))
     } catch (error) {
       const err = JSON.parse(JSON.stringify(error)) as ClerkError
       toast({
         title: ERROR_MESSAGES.OOPS,
-        description: err.errors[0].longMessage
+        description: t(getClerkError(err.errors[0].code))
       })
       setIsLoading(false)
       resetMethods.reset()

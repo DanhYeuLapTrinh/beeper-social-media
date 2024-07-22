@@ -50,6 +50,11 @@
     "password_required": "Password is required",
     "password_length_invalid": "Password must be between 8 and 50 characters",
     "mismatch_password": "Password does not match",
-    "email_invalid": "Please enter a valid email address"
+    "email_invalid": "Please enter a valid email address",
+    "incorrect_code": "Incorrect code",
+    "something_went_wrong": "Something went wrong. Please try again later.",
+    "already_have_an_account": "Already have an account?",
+    "incorrect_password": "Password is incorrect. Try again, or use another method.",
+    "account_not_found": "Couldn't find your account."
   }
 }
