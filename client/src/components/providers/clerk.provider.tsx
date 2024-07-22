@@ -8,8 +8,10 @@ if (!PUBLISHABLE_KEY) {
 }
 
 export default function ClerkProvider({ children }: { children: React.ReactNode }) {
+  const signOutUrl = ROUTES.PUBLIC.AUTH + '/' + ROUTES.PUBLIC.SIGN_IN
+
   return (
-    <ClerkAuthProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl={ROUTES.PUBLIC.AUTH}>
+    <ClerkAuthProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl={signOutUrl}>
       {children}
     </ClerkAuthProvider>
   )

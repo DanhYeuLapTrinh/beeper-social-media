@@ -12,11 +12,14 @@ const AuthSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    setCurrentStep: (state, action: PayloadAction<number>) => {
+      state.currentStep = action.payload
+    },
     goToStep: (state, action: PayloadAction<number>) => {
       state.currentStep += action.payload
     }
   }
 })
 
-export const { goToStep } = AuthSlice.actions
+export const { setCurrentStep, goToStep } = AuthSlice.actions
 export default AuthSlice.reducer
