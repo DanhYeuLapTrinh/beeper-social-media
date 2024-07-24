@@ -15,7 +15,7 @@ export default function Sidebar() {
   const { t } = useTranslation()
 
   return (
-    <div className='flex flex-col gap-5 bg-white dark:bg-inherit border-r border-mediumGray w-[300px] py-6 px-4'>
+    <div className='flex flex-col gap-5 bg-background border-r border-border w-[300px] py-6 px-4'>
       <div className='flex items-center gap-1'>
         <Icons.beeper className='w-14 h-14' />
         <Label className='font-bold text-primary text-3xl'>Beeper</Label>
@@ -28,7 +28,9 @@ export default function Sidebar() {
           return (
             <Link key={item.id} to={item.url} className={cn('hover:bg-secondary p-3 rounded-lg', isActive)}>
               <div className='flex items-center gap-3.5'>
-                <item.icon className={cn('w-7 h-7 font-normal border-1', isCurrentPath ? 'text-white' : '')} />
+                <item.icon
+                  className={cn('w-7 h-7 font-normal border-1 stroke-1', isCurrentPath ? 'text-white stroke-2' : '')}
+                />
                 <Label
                   className={cn('text-base font-normal cursor-pointer', isCurrentPath ? 'text-white font-medium' : '')}
                 >

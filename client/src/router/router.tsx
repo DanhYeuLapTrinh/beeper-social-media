@@ -1,5 +1,6 @@
 import ForgotPassword from '@/features/auth/forgot-password/forgot-password-form.provider'
 import Signin from '@/features/auth/signin/signin-form.provider'
+import Signup from '@/features/auth/signup/signup-form.provider'
 import AppLayout from '@/layouts/app.layout'
 import AuthLayout from '@/layouts/auth.layout'
 import DefaultLayout from '@/layouts/default.layout'
@@ -7,8 +8,8 @@ import GuardLayout from '@/layouts/guard.layout'
 import Home from '@/pages/home'
 import NotFound from '@/pages/not-found'
 import SSOCallback from '@/pages/sso-callback'
-import OTPForm from '@/features/auth/otp/otp-form'
 import ResetPassword from '@/features/auth/reset-password/reset-password-form.provider'
+import OTPForm from '@/features/auth/otp/otp-form.provider'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { ROUTES } from '.'
 
@@ -76,7 +77,7 @@ const router = createBrowserRouter([
           },
           {
             path: ROUTES.PUBLIC.SIGN_UP,
-            element: <p>Signup</p>
+            element: <Signup />
           },
           {
             path: ROUTES.PUBLIC.FORGOT_PASSWORD,
