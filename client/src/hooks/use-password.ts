@@ -1,13 +1,13 @@
 import { useToast } from '@/components/ui/use-toast'
 import { ERROR_MESSAGES, LOCAL_STORAGE_KEYS } from '@/constants'
-import { useAppDispatch } from '@/lib/redux-toolkit/hooks'
+import { useAppDispatch, useAppSelector } from '@/lib/redux-toolkit/hooks'
+import { setIsLoading } from '@/lib/redux-toolkit/slices/loading.slice'
 import { setSuccessfulCreation, setSuccessfulFirstFactor } from '@/lib/redux-toolkit/slices/password.slice'
 import { getClerkError } from '@/lib/utils'
 import { ClerkError } from '@/models/error.model'
 import { forgotPasswordSchema, resetPasswordSchema } from '@/models/schemas/auth.schema'
 import { useSignIn } from '@clerk/clerk-react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useLocalStorage } from 'usehooks-ts'
@@ -25,7 +25,8 @@ export const usePassword = () => {
   })
 
   const dispatch = useAppDispatch()
-  const [isLoading, setIsLoading] = useState(false)
+  const isLoading = useAppSelector((state) => state.loading.isLoading)
+
   const [value, setValue, removeValue] = useLocalStorage(LOCAL_STORAGE_KEYS.EMAIL_TEMP, '')
   const { isLoaded, signIn, setActive } = useSignIn()
   const { toast } = useToast()
@@ -36,7 +37,7 @@ export const usePassword = () => {
       return
     }
     try {
-      setIsLoading(true)
+      dispatch(setIsLoading(true))
       await signIn.create({
         strategy: 'reset_password_email_code',
         identifier: email
@@ -46,7 +47,7 @@ export const usePassword = () => {
         title: t('email_sent'),
         description: t('email_sent_desc')
       })
-      setIsLoading(false)
+      dispatch(setIsLoading(false))
       setValue(email)
     } catch (error) {
       const err = JSON.parse(JSON.stringify(error)) as ClerkError
@@ -54,7 +55,7 @@ export const usePassword = () => {
         title: ERROR_MESSAGES.OOPS,
         description: t(getClerkError(err.errors[0].code))
       })
-      setIsLoading(false)
+      dispatch(setIsLoading(false))
       forgotMethods.reset()
     }
   }
@@ -64,12 +65,12 @@ export const usePassword = () => {
       return
     }
     try {
-      setIsLoading(true)
+      dispatch(setIsLoading(true))
       await signIn.attemptFirstFactor({
         strategy: 'reset_password_email_code',
         code
       })
-      setIsLoading(false)
+      dispatch(setIsLoading(false))
       removeValue()
       dispatch(setSuccessfulFirstFactor(true))
     } catch (error) {
@@ -78,7 +79,7 @@ export const usePassword = () => {
         title: ERROR_MESSAGES.OOPS,
         description: t(getClerkError(err.errors[0].code))
       })
-      setIsLoading(false)
+      dispatch(setIsLoading(false))
     }
   }
 
@@ -87,7 +88,7 @@ export const usePassword = () => {
       return
     }
     try {
-      setIsLoading(true)
+      dispatch(setIsLoading(true))
       const result = await signIn.resetPassword({
         password,
         signOutOfOtherSessions: isSignoutAll === 'off' ? false : true
@@ -95,7 +96,7 @@ export const usePassword = () => {
       if (result.status === 'complete') {
         setActive({ session: result.createdSessionId })
       }
-      setIsLoading(false)
+      dispatch(setIsLoading(false))
       // dispatch(setSuccessfulCreation(false))
       // dispatch(setSuccessfulFirstFactor(false))
     } catch (error) {
@@ -104,7 +105,7 @@ export const usePassword = () => {
         title: ERROR_MESSAGES.OOPS,
         description: t(getClerkError(err.errors[0].code))
       })
-      setIsLoading(false)
+      dispatch(setIsLoading(false))
       resetMethods.reset()
     }
   }

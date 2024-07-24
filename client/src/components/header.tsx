@@ -16,7 +16,7 @@ export default function Header() {
   const isChosen = (option: string) => value === option
 
   return (
-    <header className='bg-white dark:bg-inherit flex items-center justify-around p-3 border-b border-mediumGray dark:border-lightGray'>
+    <header className='bg-background flex items-center justify-around p-3 border-b border-border '>
       <Menubar>
         {HEADER_MENU_ITEMS.map((item) => (
           <MenubarMenu key={item.id}>

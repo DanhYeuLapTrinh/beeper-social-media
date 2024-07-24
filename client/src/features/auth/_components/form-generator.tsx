@@ -15,10 +15,10 @@ type FormGeneratorProps = {
   register: UseFormRegister<any>
   name: string
   errors: FieldErrors<FieldValues>
-  lines?: number
   form?: string
   defaultValue?: string
   autoFocus?: boolean
+  optional?: boolean
 }
 
 export default function FormGenerator({
@@ -30,10 +30,10 @@ export default function FormGenerator({
   register,
   name,
   errors,
-  lines,
   form,
   defaultValue,
-  autoFocus
+  autoFocus,
+  optional
 }: FormGeneratorProps) {
   const { t } = useTranslation()
   switch (inputType) {
@@ -65,8 +65,11 @@ export default function FormGenerator({
       )
     default:
       return (
-        <Label className='flex flex-col gap-2' htmlFor={`input-${label}`}>
-          {label && t(label)}
+        <Label className='flex flex-col gap-2.5' htmlFor={`input-${label}`}>
+          <div className='flex items-center gap-2'>
+            {label && t(label)}
+            {optional && <p className='text-xs font-normal text-muted-foreground'>({t('optional')})</p>}
+          </div>
           <Input
             id={`input-${label}`}
             type={type}

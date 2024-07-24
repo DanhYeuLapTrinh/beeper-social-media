@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from 'clsx'
+import { UserFormType } from '@/constants/forms'
 import { twMerge } from 'tailwind-merge'
 
 /**
@@ -11,7 +12,7 @@ import { twMerge } from 'tailwind-merge'
  * @version 1.0.1.0 [version] [subChange] [delivery] [fixBug]
  * Version 1 chưa có sự thay đổi lớn (>90%) đã delivery và chưa fixBug
  */
-export function cn(...inputs: ClassValue[]) {
+export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs))
 }
 
@@ -23,13 +24,13 @@ export function cn(...inputs: ClassValue[]) {
  * @author Nguyen Huu Danh
  * @version 1.0.1.0
  */
-export function maskEmail(email: string) {
+export const maskEmail = (email: string) => {
   const [localPart, domain] = email.split('@')
   const maskedLocalPart = localPart.substring(0, 4) + '****'
   return `${maskedLocalPart}@${domain}`
 }
 
-export function getClerkError(code: string) {
+export const getClerkError = (code: string) => {
   switch (code) {
     case 'form_code_incorrect':
       return 'incorrect_code'
@@ -37,7 +38,53 @@ export function getClerkError(code: string) {
       return 'incorrect_password'
     case 'form_identifier_not_found':
       return 'account_not_found'
+    case 'too_many_requests':
+      return 'too_many_requests'
+    case 'form_identifier_exists':
+      return 'username_exists'
+    case 'form_password_pwned':
+      return 'password_pwned'
     default:
       return 'something_went_wrong'
   }
+}
+
+export const validatePasswordStrength = (password: string) => {
+  const hasUppercase = /[A-Z]/.test(password)
+  const hasLowercase = /[a-z]/.test(password)
+  const hasNumber = /[0-9]/.test(password)
+  const hasSpecialChar = /[`!@#$%^&*()_\-+=[\]{};':"\\|,.<>/?~ ]/.test(password)
+
+  return hasUppercase && hasLowercase && hasNumber && hasSpecialChar
+}
+
+export const renderForm = (fields: UserFormType[]): UserFormType[][] => {
+  const rows: UserFormType[][] = []
+  let currentRow: UserFormType[] = []
+
+  fields.forEach((field, index) => {
+    // We first push the field into the currentRow array
+    currentRow.push(field)
+
+    const isLastField = index === fields.length - 1
+    const nextField = fields[index + 1]
+    // If the field has col layout (it will take the full width and stand alone) or it is the last field
+    // or the next field is also col then push the currentRow (at this point an array of 1 field) into rows
+    // then reset the currentRow to an empty array.
+    if (!field.layout || field.layout === 'col' || isLastField || (nextField && nextField.layout === 'col')) {
+      rows.push(currentRow)
+      currentRow = []
+    } else if (field.layout === 'row' && (!nextField || nextField.layout === 'row')) {
+      // If the current field is for a double layout and the next field exists and is also double,
+      // we will do nothing and wait for the loop to start over to push the next field into the currentRow
+    }
+    // DEMO:
+    // row row col col
+    // (1) (2) (3) (4)
+    // The loop starts with (1) and push it into currentRow then it see that it is a row and the nextField is also a row so it do nothing
+    // The loop starts with (2) and push it into currentRow (at this time contains (1)) since (2) also a row
+    // The loop starts with (3) and see that it is a col so it push the currentRow (contains 1 and 2) into rows and reset currentRow to an empty array
+    // ...
+  })
+  return rows
 }

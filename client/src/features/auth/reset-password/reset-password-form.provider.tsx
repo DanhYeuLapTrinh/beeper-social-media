@@ -1,6 +1,6 @@
-import Actions from '../_components/actions'
 import AuthIcons from '../_components/icons'
 import ResetPasswordForm from './reset-password-form'
+import ButtonWithLoader from '@/components/ui/button-with-loader'
 import { Label } from '@/components/ui/label'
 import { usePassword } from '@/hooks/use-password'
 import { useAppDispatch, useAppSelector } from '@/lib/redux-toolkit/hooks'
@@ -32,12 +32,13 @@ export default function ResetPasswordFormProvider() {
           <Label className='block font-normal mb-7'>{t('set_new_password_desc')}</Label>
           <form className='w-full flex flex-col' onSubmit={resetMethods.handleSubmit((data) => resetPassword(data))}>
             <ResetPasswordForm />
-            <Actions
-              type='2'
-              isLoading={isLoading}
-              firstTitle='reset_password'
-              secondTitle='back'
-              secondFunction={handleGoBack}
+            <ButtonWithLoader isLoading={isLoading} text='reset_password' type='submit' className='mt-2' />
+            <ButtonWithLoader
+              variant='link'
+              onClick={handleGoBack}
+              isLoading={false}
+              text='back'
+              type='submit'
               className='mt-2'
             />
           </form>

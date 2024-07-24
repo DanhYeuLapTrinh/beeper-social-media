@@ -12,19 +12,7 @@ export default function ForgotPasswordForm() {
   return (
     <>
       {USER_FORGOT_PASSWORD_FORM.map((field) => {
-        return (
-          <FormGenerator
-            key={field.id}
-            type={field.type}
-            inputType={field.inputType}
-            label={field.label}
-            placeholder={field.placeholder}
-            name={field.name}
-            register={register}
-            errors={errors}
-            autoFocus={field.autoFocus}
-          />
-        )
+        return <FormGenerator key={field.id} register={register} errors={errors} {...field} />
       })}
     </>
   )
