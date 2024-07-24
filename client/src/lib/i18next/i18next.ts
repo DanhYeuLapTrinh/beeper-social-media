@@ -3,10 +3,10 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import { en, vi } from '@/assets/locales/index'
 import { initReactI18next } from 'react-i18next'
 
-const resources = {
+export const resources = {
   en,
   vi
-}
+} as const
 
 i18n
   .use(initReactI18next)

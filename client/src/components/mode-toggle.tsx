@@ -5,7 +5,7 @@ import { useTheme } from './providers/theme.provider'
 
 export function ModeToggle() {
   const { setTheme } = useTheme()
-  // FIXME: Dark mode
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

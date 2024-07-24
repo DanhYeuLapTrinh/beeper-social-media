@@ -1,7 +1,6 @@
-import Actions from '../_components/actions'
 import AuthIcons from '../_components/icons'
 import ForgotPasswordForm from './forgot-password-form'
-import { useOAuthSignin } from '@/hooks/use-oauth-signin'
+import ButtonWithLoader from '@/components/ui/button-with-loader'
 import { Label } from '@/components/ui/label'
 import { usePassword } from '@/hooks/use-password'
 import { useAppSelector } from '@/lib/redux-toolkit/hooks'
@@ -12,7 +11,6 @@ import { Navigate } from 'react-router-dom'
 
 export default function ForgotPasswordFormProvider() {
   const { createEmailCode, isLoading, forgotMethods } = usePassword()
-  const { handleSignin } = useOAuthSignin()
   const { successfulCreation } = useAppSelector((state) => state.password)
   const { t } = useTranslation()
 
@@ -30,10 +28,8 @@ export default function ForgotPasswordFormProvider() {
             onSubmit={forgotMethods.handleSubmit((data) => createEmailCode(data))}
           >
             <ForgotPasswordForm />
-            <Actions type='forgot-password' isLoading={isLoading} />
+            <ButtonWithLoader className='mt-2' isLoading={isLoading} text='send_verification_code' type='submit' />
           </form>
-          <Label className='text-muted-foreground text-xs'>{t('or')}</Label>
-          <Actions type='social' isLoading={false} googleFunction={() => handleSignin('oauth_apple')} />
         </div>
       </FormProvider>
     )

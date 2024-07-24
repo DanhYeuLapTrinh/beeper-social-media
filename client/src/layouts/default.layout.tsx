@@ -9,7 +9,9 @@ export default function DefaultLayout() {
       <Sidebar />
       <div className='flex flex-col w-full'>
         <Header />
-        <Outlet />
+        <div className='w-full h-full bg-background'>
+          <Outlet />
+        </div>
       </div>
     </Wrapper>
   )
