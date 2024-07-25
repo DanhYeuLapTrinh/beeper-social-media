@@ -1,7 +1,7 @@
+import dbService from '@/services/db.services'
 import { ERROR_MESSAGES, HTTP_STATUS_CODES } from '@/constants'
 import { BaseError } from '@/models/api/error.api'
 import { TokenPayload } from '@/models/token.model'
-import dbService from '@/services/db.services'
 import { validate } from '@/utils/validator'
 import { createClerkClient } from '@clerk/clerk-sdk-node'
 import { config } from 'dotenv'
