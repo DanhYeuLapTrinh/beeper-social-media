@@ -1,4 +1,5 @@
 import userRoutes from '@/routes/user.routes'
+import leetCodeRoutes from './routes/leet-code.routes'
 import dbService from '@/services/db.services'
 import cors from 'cors'
 import express, { Router } from 'express'
@@ -19,6 +20,7 @@ app.use(cors())
 
 app.use(ROUTES.PREFIX.V1, apiRouter)
 apiRouter.use(ROUTES.PREFIX.USER, userRoutes)
+apiRouter.use(ROUTES.PREFIX.LEET_CODE, leetCodeRoutes)
 
 app.use(defaultErrorHanler)
 

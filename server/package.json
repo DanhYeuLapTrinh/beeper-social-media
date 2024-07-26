@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@clerk/clerk-sdk-node": "^5.0.16",
+    "axios": "^1.7.2",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "express-oauth2-jwt-bearer": "^1.6.0",

@@ -1,7 +1,8 @@
 export const ROUTES = {
   PREFIX: {
     V1: '/api/v1',
-    USER: '/users'
+    USER: '/users',
+    LEET_CODE: '/leet-code'
   },
   PRIVATE: {
     ME: '/me'

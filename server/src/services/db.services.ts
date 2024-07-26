@@ -5,6 +5,9 @@ import { Collection, Db, MongoClient } from 'mongodb'
 // Load the environment variables from .env file
 config()
 
+if (!process.env.MONGODB_URI || !process.env.MONGODB_NAME) {
+  throw new Error('MONGODB credentials are not defined')
+}
 class DBService {
   private client: MongoClient
   private db: Db
