@@ -1,6 +1,6 @@
 import SignupStep from './signup-step'
 import ButtonHandlers from './button-handlers'
-import { useSignup } from '@/hooks/use-signup'
+import { useSignup } from '@/hooks/auth/use-signup'
 import { FormProvider } from 'react-hook-form'
 
 export default function SignupFormProvider() {

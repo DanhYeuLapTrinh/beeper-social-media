@@ -1,6 +1,6 @@
 import FormGenerator from '../_components/form-generator'
 import { USER_FORGOT_PASSWORD_FORM } from '@/constants/forms'
-import { ForgotPasswordFormValues } from '@/hooks/use-password'
+import { ForgotPasswordFormValues } from '@/hooks/auth/use-password'
 import { useFormContext } from 'react-hook-form'
 
 export default function ForgotPasswordForm() {

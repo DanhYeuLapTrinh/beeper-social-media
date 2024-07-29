@@ -1,7 +1,7 @@
 import OTPForm from '../otp/otp-form'
 import AuthIcons from '../_components/icons'
 import { Label } from '@/components/ui/label'
-import { SignupFormValues, useSignup } from '@/hooks/use-signup'
+import { SignupFormValues, useSignup } from '@/hooks/auth/use-signup'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'

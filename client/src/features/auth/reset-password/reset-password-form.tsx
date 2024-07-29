@@ -1,6 +1,6 @@
 import FormGenerator from '../_components/form-generator'
 import { USER_RESET_PASSWORD_FORM } from '@/constants/forms'
-import { ResetPasswordFormValues } from '@/hooks/use-password'
+import { ResetPasswordFormValues } from '@/hooks/auth/use-password'
 import { useFormContext } from 'react-hook-form'
 
 export default function ResetPasswordForm() {

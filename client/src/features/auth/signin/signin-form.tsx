@@ -1,6 +1,6 @@
 import FormGenerator from '../_components/form-generator'
 import { USER_SIGNIN_FORM } from '@/constants/forms'
-import { LoginFormValues } from '@/hooks/use-signin'
+import { LoginFormValues } from '@/hooks/auth/use-signin'
 import { useFormContext } from 'react-hook-form'
 
 export default function SigninForm() {
