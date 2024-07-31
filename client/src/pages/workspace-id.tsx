@@ -4,15 +4,15 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/componen
 export default function WorkspaceID() {
   return (
     <ResizablePanelGroup direction='horizontal' className='rounded-lg border'>
-      <ResizablePanel defaultSize={50}>
+      <ResizablePanel defaultSize={50} className='px-4 py-5'>
         <GetProblemDetail />
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel defaultSize={50}>
         <ResizablePanelGroup direction='vertical'>
-          <ResizablePanel defaultSize={25}></ResizablePanel>
+          <ResizablePanel defaultSize={65}></ResizablePanel>
           <ResizableHandle withHandle />
-          <ResizablePanel defaultSize={75}></ResizablePanel>
+          <ResizablePanel defaultSize={35}></ResizablePanel>
         </ResizablePanelGroup>
       </ResizablePanel>
     </ResizablePanelGroup>

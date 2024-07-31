@@ -7,7 +7,7 @@ export default function WorkspaceLayout() {
       {/* TODO: Coding navigator */}
       <div className='flex flex-col w-full'>
         Header
-        <div className='w-full h-full bg-background p-4'>
+        <div className='w-full h-full bg-background p-3'>
           <Outlet />
         </div>
       </div>
