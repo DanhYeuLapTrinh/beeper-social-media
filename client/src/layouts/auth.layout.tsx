@@ -1,6 +1,6 @@
 import Wrapper from '@/components/wrapper'
 import Social from '@/features/auth/_components/social'
-import PageLoader from '@/components/page-loader'
+import PageLoader from '@/components/ui/page-loader'
 import { Card } from '@/components/ui/card'
 import { Label, labelVariants } from '@/components/ui/label'
 import { useOAuthSignin } from '@/hooks/auth/use-oauth-signin'

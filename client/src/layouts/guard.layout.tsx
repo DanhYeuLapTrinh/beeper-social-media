@@ -1,4 +1,4 @@
-import PageLoader from '@/components/page-loader'
+import PageLoader from '@/components/ui/page-loader'
 import { ROUTES } from '@/router'
 import { useAuth } from '@clerk/clerk-react'
 import { Navigate, Outlet } from 'react-router-dom'

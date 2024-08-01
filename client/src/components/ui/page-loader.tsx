@@ -1,5 +1,5 @@
-import Wrapper from './wrapper'
-import { Icons } from './ui/icons'
+import Wrapper from '../wrapper'
+import { Icons } from './icons'
 
 export default function PageLoader() {
   return (
