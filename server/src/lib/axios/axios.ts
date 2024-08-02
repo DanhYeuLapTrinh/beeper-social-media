@@ -54,3 +54,13 @@ query getQuestionDetail($titleSlug: String!) {
   } 
 }
 `
+export const GET_PROBLEM_TOPICS_QUERY = `
+query singleQuestionTopicTags($titleSlug: String!) {
+  question(titleSlug: $titleSlug) {
+    topicTags {
+      name      
+      slug    
+    }  
+  }
+}
+`
