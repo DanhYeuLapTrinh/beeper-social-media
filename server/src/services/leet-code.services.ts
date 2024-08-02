@@ -1,4 +1,4 @@
-import { GET_ALL_PROBLEMS_QUERY, GET_PROBLEM_QUERY, leetCodeAxios } from '@/lib/axios/axios'
+import { GET_ALL_PROBLEMS_QUERY, GET_PROBLEM_QUERY, GET_PROBLEM_TOPICS_QUERY, leetCodeAxios } from '@/lib/axios/axios'
 import { LeetCodeProblemsRequestAPI } from '@/models/api/req.api'
 import { config } from 'dotenv'
 
@@ -19,6 +19,15 @@ class LeetCodeService {
   async getProblem(slug: string) {
     const response = await leetCodeAxios.post('', {
       query: GET_PROBLEM_QUERY,
+      variables: {
+        titleSlug: slug
+      }
+    })
+    return response.data
+  }
+  async getProblemTopics(slug: string) {
+    const response = await leetCodeAxios.post('', {
+      query: GET_PROBLEM_TOPICS_QUERY,
       variables: {
         titleSlug: slug
       }

@@ -17,4 +17,10 @@ leetCodeRoutes.get('/:slug', async (req, res) => {
   res.json(reponse)
 })
 
+leetCodeRoutes.get('/:slug/topic', async (req, res) => {
+  const slug = req.params.slug
+  const reponse = await leetCodeService.getProblemTopics(slug)
+  res.json(reponse)
+})
+
 export default leetCodeRoutes
