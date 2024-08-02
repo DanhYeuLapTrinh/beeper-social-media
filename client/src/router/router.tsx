@@ -10,6 +10,8 @@ import NotFound from '@/pages/not-found'
 import SSOCallback from '@/pages/sso-callback'
 import ResetPassword from '@/features/auth/reset-password/reset-password-form.provider'
 import OTPForm from '@/features/auth/otp/otp-form.provider'
+import WorkspaceLayout from '@/layouts/workspace.layout'
+import WorkspaceID from '@/pages/workspace-id'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { ROUTES } from '.'
 
@@ -58,6 +60,15 @@ const router = createBrowserRouter([
               {
                 path: ROUTES.PRIVATE.BY_FRIENDS,
                 element: <p>By Friends</p>
+              }
+            ]
+          },
+          {
+            element: <WorkspaceLayout />,
+            children: [
+              {
+                path: ROUTES.PRIVATE.WORKSPACE_ID,
+                element: <WorkspaceID />
               }
             ]
           }

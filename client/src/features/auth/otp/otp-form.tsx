@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/components/ui/input-otp'
 import { Label } from '@/components/ui/label'
-import { useThrottle } from '@/hooks/use-throttle'
+import { useThrottle } from '@/hooks/common/use-throttle'
 import { Dispatch, SetStateAction } from 'react'
 import { useTranslation } from 'react-i18next'
 interface OTPFormProps {

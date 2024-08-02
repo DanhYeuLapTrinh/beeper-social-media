@@ -1,5 +1,5 @@
 import ButtonWithLoader from '@/components/ui/button-with-loader'
-import { SignupFormValues, useSignup } from '@/hooks/use-signup'
+import { SignupFormValues, useSignup } from '@/hooks/auth/use-signup'
 import { useAppDispatch, useAppSelector } from '@/lib/redux-toolkit/hooks'
 import { goToStep } from '@/lib/redux-toolkit/slices/auth.slice'
 import { useFormContext } from 'react-hook-form'

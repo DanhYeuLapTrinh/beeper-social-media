@@ -7,7 +7,9 @@ export const ROUTES = {
     MARKETPLACE: '/marketplace',
     EXPLORE: '/explore',
     BY_FRIENDS: '/by-friends',
-    BY_COMMUNITIES: '/by-communities'
+    BY_COMMUNITIES: '/by-communities',
+    WORKSPACE: '/workspace',
+    WORKSPACE_ID: '/workspace/:workspaceId'
   },
   PUBLIC: {
     AUTH: '/auth',
