@@ -78,25 +78,6 @@ module.exports = {
   },
   plugins: [
     // eslint-disable-next-line no-undef
-    require('tailwindcss-animate'),
-    function ({ addBase }) {
-      addBase({
-        p: { fontSize: '1rem', lineHeight: '1.5rem', marginBottom: '1rem' },
-        code: {
-          backgroundColor: 'hsl(var(--muted))',
-          padding: '0.1rem 0.2rem',
-          borderRadius: '0.25rem',
-          border: '1px solid hsl(var(--secondary))'
-        },
-        ul: {
-          listStyleType: 'disc',
-          fontSize: '0.875rem',
-          paddingLeft: '1.25rem', // Add padding to show the bullets
-          li: {
-            marginBottom: '0.75rem'
-          }
-        }
-      })
-    }
+    require('tailwindcss-animate')
   ]
 }

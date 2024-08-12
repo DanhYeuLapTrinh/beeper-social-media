@@ -1,5 +1,5 @@
 import UserTypeCard from './user-type-card'
-import { UserType } from '@/models'
+import { UserType } from '@/models/schemas/auth.schema'
 import { Dispatch, SetStateAction } from 'react'
 import { UseFormRegister } from 'react-hook-form'
 
