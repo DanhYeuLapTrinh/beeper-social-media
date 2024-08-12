@@ -3,10 +3,10 @@ import { Response } from 'express'
 
 export function sendResponse(res: Response, options: ResponseOptions): void {
   const { message, status, data } = options
-  const responseObj: ResponseOptions = { message }
+  let responseObj: ResponseOptions = { message }
 
   if (data !== undefined) {
-    responseObj.data = data
+    responseObj = { ...responseObj, data }
   }
 
   res.status(status || 200).json(responseObj)
