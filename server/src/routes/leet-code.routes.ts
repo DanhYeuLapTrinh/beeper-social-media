@@ -1,26 +1,21 @@
-import leetCodeService from '@/services/leet-code.services'
+import {
+  getProblemController,
+  getProblemsController,
+  getProblemTopicsController
+} from '@/controllers/leet-code.controller'
 import { config } from 'dotenv'
 import { Router } from 'express'
+import { errorHandler } from '@/utils/handler'
+import { slugMiddleware } from '@/middlewares/leet-code.middleware'
 
 config()
 
 const leetCodeRoutes = Router()
 
-leetCodeRoutes.get('/all', async (req, res) => {
-  const reponse = await leetCodeService.getProblems({ categorySlug: '', limit: 10, filters: {}, skip: 0 })
-  res.json(reponse)
-})
+leetCodeRoutes.get('/all', errorHandler(getProblemsController))
 
-leetCodeRoutes.get('/:slug', async (req, res) => {
-  const slug = req.params.slug
-  const reponse = await leetCodeService.getProblem(slug)
-  res.json(reponse)
-})
+leetCodeRoutes.get('/:slug', errorHandler(getProblemController))
 
-leetCodeRoutes.get('/:slug/topic', async (req, res) => {
-  const slug = req.params.slug
-  const reponse = await leetCodeService.getProblemTopics(slug)
-  res.json(reponse)
-})
+leetCodeRoutes.get('/:slug/topic', slugMiddleware, errorHandler(getProblemTopicsController))
 
 export default leetCodeRoutes

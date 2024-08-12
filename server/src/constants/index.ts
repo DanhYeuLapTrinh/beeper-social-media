@@ -31,6 +31,11 @@ export const ERROR_MESSAGES = {
     MISMATCH_TOKEN_VERSION: 'Token version mismatch',
     USER_NOT_FOUND: 'User not found',
     USER_NOT_VERIFIED: 'User not verified'
+  },
+  PROBLEMS: {
+    GET_PROBLEMS_SUCCESS: 'Get problems successful',
+    GET_PROBLEM_SUCCESS: 'Get problem successful',
+    GET_PROBLEM_TOPICS_SUCCESS: 'Get problem topics successful'
   }
 }
 
