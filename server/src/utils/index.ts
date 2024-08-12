@@ -6,7 +6,7 @@ export function sendResponse(res: Response, options: ResponseOptions): void {
   let responseObj: ResponseOptions = { message }
 
   if (data !== undefined) {
-    responseObj = { ...responseObj, data }
+    responseObj = { ...responseObj, ...data }
   }
 
   res.status(status || 200).json(responseObj)
