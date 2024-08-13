@@ -1,6 +1,12 @@
 import { validatePasswordStrength } from '@/lib/utils'
 import { z } from 'zod'
-import { PasswordSchema } from '..'
+
+export type UserType = 'owner' | 'student'
+
+export type PasswordSchema = {
+  password: string
+  confirmPassword: string
+}
 
 const passwordMatchRefinement = (schema: PasswordSchema, ctx: z.RefinementCtx) => {
   if (schema.password !== schema.confirmPassword) {

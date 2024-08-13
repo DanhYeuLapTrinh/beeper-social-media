@@ -1,5 +1,9 @@
 import { GET_ALL_PROBLEMS_QUERY, GET_PROBLEM_QUERY, GET_PROBLEM_TOPICS_QUERY, leetCodeAxios } from '@/lib/axios/axios'
-import { LeetCodeProblemsRequestAPI } from '@/models/api/req.api'
+import {
+  LeetCodeProblemsRequestAPI,
+  LeetCodeProblemResponseAPI,
+  LeetCodeProblemTopicsResponseAPI
+} from '@/models/api/leet-code.api'
 import { config } from 'dotenv'
 
 config()
@@ -9,30 +13,40 @@ if (!process.env.LEET_CODE_URL) {
 }
 
 class LeetCodeService {
+  // Get all problems
+  // TODO: Add pagination
   async getProblems(variables: LeetCodeProblemsRequestAPI) {
-    const response = await leetCodeAxios.post('', {
+    const {
+      data: { data }
+    } = await leetCodeAxios.post('', {
       query: GET_ALL_PROBLEMS_QUERY,
       variables
     })
-    return response.data
+    return data
   }
+  // Get a single problem detail
   async getProblem(slug: string) {
-    const response = await leetCodeAxios.post('', {
+    const {
+      data: { data }
+    } = await leetCodeAxios.post<LeetCodeProblemResponseAPI>('', {
       query: GET_PROBLEM_QUERY,
       variables: {
         titleSlug: slug
       }
     })
-    return response.data
+    return data
   }
+  // Get a single problem topics
   async getProblemTopics(slug: string) {
-    const response = await leetCodeAxios.post('', {
+    const {
+      data: { data }
+    } = await leetCodeAxios.post<LeetCodeProblemTopicsResponseAPI>('', {
       query: GET_PROBLEM_TOPICS_QUERY,
       variables: {
         titleSlug: slug
       }
     })
-    return response.data
+    return data
   }
 }
 
