@@ -1,9 +1,17 @@
-import { getProblemDetail } from '@/services/problem.services'
-import { useQuery } from '@tanstack/react-query'
+import { getProblemDetail, getProblemTopics } from '@/services/problem.services'
+import { useQueries } from '@tanstack/react-query'
 
 export const useProblemDetail = (titleSlug: string) => {
-  return useQuery({
-    queryKey: ['problemDetail', titleSlug],
-    queryFn: () => getProblemDetail(titleSlug)
+  return useQueries({
+    queries: [
+      {
+        queryKey: ['problemDetail', titleSlug],
+        queryFn: () => getProblemDetail(titleSlug)
+      },
+      {
+        queryKey: ['problemTopics', titleSlug],
+        queryFn: () => getProblemTopics(titleSlug)
+      }
+    ]
   })
 }

@@ -75,6 +75,14 @@
     "business_owner": "I own a business",
     "business_owner_desc": "Setting up my account for my company.",
     "student_owner": "I'm a student",
-    "student_owner_desc": "Looking to connect with other students."
+    "student_owner_desc": "Looking to connect with other students.",
+    "topics": "Topics",
+    "hints": "Hints",
+    "similar_questions": "Similar questions",
+    "discussions": "Discussions",
+    "description": "Description",
+    "editorial": "Editorial",
+    "solutions": "Solutions",
+    "submissions": "Submissions"
   }
 }

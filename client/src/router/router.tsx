@@ -11,9 +11,13 @@ import SSOCallback from '@/pages/sso-callback'
 import ResetPassword from '@/features/auth/reset-password/reset-password-form.provider'
 import OTPForm from '@/features/auth/otp/otp-form.provider'
 import WorkspaceLayout from '@/layouts/workspace.layout'
-import WorkspaceID from '@/pages/workspace-id'
+import WorkspaceDesc from '@/pages/workspace/workspace-desc'
+import WorkspaceRedirect from '@/pages/workspace/workspace-redirect'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { ROUTES } from '.'
+import WorkspaceEditoral from '@/pages/workspace/workspace-editoral'
+import WorkspaceSolutions from '@/pages/workspace/workspace-solutions'
+import WorkspaceSubmissions from '@/pages/workspace/workspace-submissions'
 
 const router = createBrowserRouter([
   {
@@ -68,7 +72,23 @@ const router = createBrowserRouter([
             children: [
               {
                 path: ROUTES.PRIVATE.WORKSPACE_ID,
-                element: <WorkspaceID />
+                element: <WorkspaceRedirect />
+              },
+              {
+                path: ROUTES.PRIVATE.WORKSPACE_ID_DESC,
+                element: <WorkspaceDesc />
+              },
+              {
+                path: ROUTES.PRIVATE.WORKSPACE_ID_EDITORIAL,
+                element: <WorkspaceEditoral />
+              },
+              {
+                path: ROUTES.PRIVATE.WORKSPACE_ID_SOLUTIONS,
+                element: <WorkspaceSolutions />
+              },
+              {
+                path: ROUTES.PRIVATE.WORKSPACE_ID_SUBMISSIONS,
+                element: <WorkspaceSubmissions />
               }
             ]
           }
