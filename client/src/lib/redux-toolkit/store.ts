@@ -2,6 +2,7 @@ import authSlice from './slices/auth.slice'
 import emailSlice from './slices/email.slice'
 import storage from 'redux-persist/lib/storage'
 import loadingSlice from './slices/loading.slice'
+import panelSlice from './slices/panel.slice'
 import passwordSlice from './slices/password.slice'
 import { configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
@@ -21,7 +22,8 @@ export const store = configureStore({
     auth: authSlice,
     password: passwordSlice,
     email: persitEmailSlice,
-    loading: loadingSlice
+    loading: loadingSlice,
+    panel: panelSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

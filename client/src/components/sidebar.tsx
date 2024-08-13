@@ -28,9 +28,7 @@ export default function Sidebar() {
           return (
             <Link key={item.id} to={item.url} className={cn('hover:bg-secondary p-3 rounded-lg', isActive)}>
               <div className='flex items-center gap-3.5'>
-                <item.icon
-                  className={cn('w-7 h-7 font-normal border-1 stroke-1', isCurrentPath ? 'text-white stroke-2' : '')}
-                />
+                {item.icon(isCurrentPath, cn('w-7 h-7 font-normal', isCurrentPath ? 'text-white' : 'text-base'))}
                 <Label
                   className={cn('text-base font-normal cursor-pointer', isCurrentPath ? 'text-white font-medium' : '')}
                 >

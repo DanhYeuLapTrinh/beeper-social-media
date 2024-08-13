@@ -88,3 +88,14 @@ export const renderForm = (fields: UserFormType[]): UserFormType[][] => {
   })
   return rows
 }
+
+export const getDifficultyColor = (difficulty: 'Easy' | 'Medium' | 'Hard') => {
+  switch (difficulty) {
+    case 'Easy':
+      return 'text-teal-500'
+    case 'Medium':
+      return 'text-amber-500'
+    case 'Hard':
+      return 'text-red-500'
+  }
+}
