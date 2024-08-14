@@ -11,13 +11,13 @@ import SSOCallback from '@/pages/sso-callback'
 import ResetPassword from '@/features/auth/reset-password/reset-password-form.provider'
 import OTPForm from '@/features/auth/otp/otp-form.provider'
 import WorkspaceLayout from '@/layouts/workspace.layout'
-import WorkspaceDesc from '@/pages/workspace/workspace-desc'
-import WorkspaceRedirect from '@/pages/workspace/workspace-redirect'
+import WorkspaceDesc from '@/components/workspace/workspace-desc'
+import WorkspaceRedirect from '@/components/workspace/workspace-redirect'
+import WorkspaceEditoral from '@/components/workspace/workspace-editoral'
+import WorkspaceSolutions from '@/components/workspace/workspace-solutions'
+import WorkspaceSubmissions from '@/components/workspace/workspace-submissions'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { ROUTES } from '.'
-import WorkspaceEditoral from '@/pages/workspace/workspace-editoral'
-import WorkspaceSolutions from '@/pages/workspace/workspace-solutions'
-import WorkspaceSubmissions from '@/pages/workspace/workspace-submissions'
 
 const router = createBrowserRouter([
   {

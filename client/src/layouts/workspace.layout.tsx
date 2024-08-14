@@ -1,36 +1,63 @@
-import WorkspaceDescHeader from '@/components/workspace-desc-header'
+import WorkspaceHeader from '@/components/workspace/workspace-header'
 import Wrapper from '@/components/wrapper'
+import CodeEditor from '@/components/workspace/code-editor'
+import TestCase from '@/components/workspace/test-case'
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable'
-import { MIN_SIZE_PANEL } from '@/constants/index'
+import {
+  DEFAULT_CODE_SIZE_PANEL,
+  DEFAULT_SIZE_PANEL,
+  DEFAULT_TEST_CASE_SIZE_PANEL,
+  EXPAND_DESC_SIZE_PANEL,
+  FULL_SIZE_PANEL,
+  MIN_SIZE_PANEL,
+  TOGGLE_SIZE_PANEL
+} from '@/constants/index'
 import { useAppDispatch, useAppSelector } from '@/lib/redux-toolkit/hooks'
 import { setPanelSize } from '@/lib/redux-toolkit/slices/panel.slice'
-import { useCallback, useRef } from 'react'
+import { RefObject, useCallback, useRef, useState } from 'react'
 import { ImperativePanelHandle } from 'react-resizable-panels'
 import { Outlet } from 'react-router-dom'
+import {
+  CODE_EDITOR_HEADER_MENU_ITEMS,
+  TEST_CASE_HEADER_MENU_ITEMS,
+  WORKSPACE_HEADER_MENU_ITEMS
+} from '@/constants/menu-items'
+import { Button } from '@/components/ui/button'
+import { IoIosArrowBack, IoIosArrowDown, IoIosArrowForward, IoIosArrowUp } from 'react-icons/io'
 
 export default function WorkspaceLayout() {
-  const ref = useRef<ImperativePanelHandle>(null)
   const dispatch = useAppDispatch()
   const panelSize = useAppSelector((state) => state.panel.size)
 
-  const togglePanel = useCallback(() => {
-    const panel = ref.current
-    if (panel) {
-      if (panel.getSize() === MIN_SIZE_PANEL) {
-        panel.resize(50)
-      } else {
-        panel.resize(MIN_SIZE_PANEL)
-      }
-    }
-  }, [])
+  const descRef = useRef<ImperativePanelHandle>(null)
+  const codeRef = useRef<ImperativePanelHandle>(null)
+  const testRef = useRef<ImperativePanelHandle>(null)
 
-  const expandPanel = useCallback(() => {
+  const [isExpand, setIsExpand] = useState<null | string>(null)
+  const [isToggle, setIsToggle] = useState<null | string>(null)
+
+  const handlePanel = useCallback((ref: RefObject<ImperativePanelHandle>, initialSize: number, targetSize: number) => {
     const panel = ref.current
     if (panel) {
-      if (panel.getSize() === 100) {
-        panel.resize(50)
+      const size = panel.getSize()
+      if (initialSize > targetSize) {
+        // toggle panel size
+        if (size > targetSize) {
+          panel.resize(targetSize)
+          setIsToggle(ref.current?.getId())
+        } else {
+          panel.resize(initialSize)
+          setIsToggle(null)
+        }
       } else {
-        panel.resize(100)
+        // expand panel size
+        if (size < targetSize && size !== targetSize - MIN_SIZE_PANEL) {
+          panel.resize(targetSize)
+          setIsExpand(ref.current?.getId())
+        } else {
+          panel.resize(initialSize)
+          setIsExpand(null)
+        }
       }
     }
   }, [])
@@ -43,19 +70,67 @@ export default function WorkspaceLayout() {
           <ResizablePanel
             onResize={(e) => dispatch(setPanelSize(e))}
             minSize={MIN_SIZE_PANEL}
-            defaultSize={50}
+            defaultSize={DEFAULT_SIZE_PANEL}
             className='flex flex-col'
-            ref={ref}
+            ref={descRef}
           >
-            <WorkspaceDescHeader togglePanel={togglePanel} expandPanel={expandPanel} />
+            <WorkspaceHeader
+              isExpand={isExpand === descRef.current?.getId()}
+              isCollapse={panelSize <= MIN_SIZE_PANEL}
+              menuItems={WORKSPACE_HEADER_MENU_ITEMS}
+              toggleAction={
+                <Button
+                  size='icon'
+                  variant='ghost'
+                  onClick={() => handlePanel(descRef, DEFAULT_SIZE_PANEL, MIN_SIZE_PANEL)}
+                >
+                  {isToggle === descRef.current?.getId() ? <IoIosArrowForward /> : <IoIosArrowBack />}
+                </Button>
+              }
+              expandPanel={() => handlePanel(descRef, DEFAULT_SIZE_PANEL, FULL_SIZE_PANEL)}
+            />
             {panelSize > MIN_SIZE_PANEL ? <Outlet /> : null}
           </ResizablePanel>
           <ResizableHandle withHandle />
-          <ResizablePanel>
+          <ResizablePanel minSize={MIN_SIZE_PANEL}>
             <ResizablePanelGroup direction='vertical'>
-              <ResizablePanel defaultSize={65}></ResizablePanel>
+              <ResizablePanel defaultSize={DEFAULT_CODE_SIZE_PANEL} ref={codeRef}>
+                <WorkspaceHeader
+                  isExpand={isExpand === codeRef.current?.getId()}
+                  isCollapse={panelSize === FULL_SIZE_PANEL - MIN_SIZE_PANEL}
+                  menuItems={CODE_EDITOR_HEADER_MENU_ITEMS}
+                  toggleAction={
+                    <Button
+                      size='icon'
+                      variant='ghost'
+                      onClick={() => handlePanel(codeRef, DEFAULT_SIZE_PANEL, TOGGLE_SIZE_PANEL)}
+                    >
+                      {isToggle === codeRef.current?.getId() ? <IoIosArrowDown /> : <IoIosArrowUp />}
+                    </Button>
+                  }
+                  expandPanel={() => handlePanel(codeRef, DEFAULT_SIZE_PANEL, EXPAND_DESC_SIZE_PANEL)}
+                />
+                <CodeEditor />
+              </ResizablePanel>
               <ResizableHandle withHandle />
-              <ResizablePanel defaultSize={35}></ResizablePanel>
+              <ResizablePanel defaultSize={DEFAULT_TEST_CASE_SIZE_PANEL} ref={testRef}>
+                <WorkspaceHeader
+                  isExpand={isExpand === testRef.current?.getId()}
+                  isCollapse={panelSize === FULL_SIZE_PANEL - MIN_SIZE_PANEL}
+                  menuItems={TEST_CASE_HEADER_MENU_ITEMS}
+                  toggleAction={
+                    <Button
+                      size='icon'
+                      variant='ghost'
+                      onClick={() => handlePanel(testRef, DEFAULT_TEST_CASE_SIZE_PANEL, TOGGLE_SIZE_PANEL)}
+                    >
+                      {isToggle === testRef.current?.getId() ? <IoIosArrowDown /> : <IoIosArrowUp />}
+                    </Button>
+                  }
+                  expandPanel={() => handlePanel(testRef, DEFAULT_TEST_CASE_SIZE_PANEL, EXPAND_DESC_SIZE_PANEL)}
+                />
+                <TestCase />
+              </ResizablePanel>
             </ResizablePanelGroup>
           </ResizablePanel>
         </ResizablePanelGroup>

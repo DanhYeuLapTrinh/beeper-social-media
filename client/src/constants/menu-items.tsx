@@ -1,9 +1,14 @@
+import { cn } from '@/lib/utils'
 import { ROUTES } from '@/router'
+import { BsFileText } from 'react-icons/bs'
 import { FaRegLightbulb } from 'react-icons/fa6'
+import { PiCheckSquare } from 'react-icons/pi'
+import { GoBook } from 'react-icons/go'
 import { HiOutlineRectangleGroup, HiRectangleGroup } from 'react-icons/hi2'
+import { IoCodeSlash } from 'react-icons/io5'
 import { LuTag } from 'react-icons/lu'
 import { MdOutlineChatBubbleOutline } from 'react-icons/md'
-import { PiVideo, PiVideoFill, PiClockCounterClockwise } from 'react-icons/pi'
+import { PiClockCounterClockwise, PiVideo, PiVideoFill } from 'react-icons/pi'
 import {
   RiCalendarEventLine,
   RiCalendarFill,
@@ -12,10 +17,8 @@ import {
   RiShoppingBasketFill,
   RiShoppingBasketLine
 } from 'react-icons/ri'
-import { VscGroupByRefType } from 'react-icons/vsc'
-import { BsFileText } from 'react-icons/bs'
-import { GoBook } from 'react-icons/go'
 import { SlChemistry } from 'react-icons/sl'
+import { VscGroupByRefType } from 'react-icons/vsc'
 
 export const SIDEBAR_MENU_ITEMS = [
   {
@@ -78,25 +81,41 @@ export const WORKSPACE_HEADER_MENU_ITEMS = [
     id: 1,
     name: 'description',
     url: 'description',
-    icon: <BsFileText className='text-primary w-5 h-4' />
+    icon: (className?: string) => <BsFileText className={cn('text-primary', className)} />
   },
   {
     id: 2,
     name: 'editorial',
     url: 'editorial',
-    icon: <GoBook className='text-primary w-5 h-4' />
+    icon: (className?: string) => <GoBook className={cn('text-primary', className)} />
   },
   {
     id: 3,
     name: 'solutions',
     url: 'solutions',
-    icon: <SlChemistry className='text-primary w-5 h-4' />
+    icon: (className?: string) => <SlChemistry className={cn('text-primary', className)} />
   },
   {
     id: 4,
     name: 'submissions',
     url: 'submissions',
-    icon: <PiClockCounterClockwise className='text-primary w-5 h-4' />
+    icon: (className?: string) => <PiClockCounterClockwise className={cn('text-primary', className)} />
+  }
+]
+
+export const CODE_EDITOR_HEADER_MENU_ITEMS = [
+  {
+    id: 1,
+    name: 'code',
+    icon: (className?: string) => <IoCodeSlash className={cn('text-green-500 ', className)} />
+  }
+]
+
+export const TEST_CASE_HEADER_MENU_ITEMS = [
+  {
+    id: 1,
+    name: 'test_case',
+    icon: (className?: string) => <PiCheckSquare className={cn('text-green-500 ', className)} />
   }
 ]
 

@@ -19,7 +19,7 @@ export default function ProblemAccordion({ data, topics }: GetProblemAccordionPr
   const navigate = useNavigate()
   const { t } = useTranslation()
 
-  // FIXME: move workspace to constant
+  // TODO: move workspace to constant
   const handleNavigate = (titleSlug: string) => {
     navigate(`/workspace/${titleSlug}`)
   }
