@@ -32,7 +32,6 @@ export default function AuthLayout() {
       <Wrapper className='flex items-center justify-center'>
         <Card className='flex flex-col items-center px-4 py-8 gap-5'>
           <Outlet />
-          {/* TODO: Login with Facebook*/}
           {isDisplaySocial ? (
             <>
               <div className='flex items-center justify-center w-full'>

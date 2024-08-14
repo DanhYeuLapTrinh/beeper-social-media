@@ -83,6 +83,8 @@
     "description": "Description",
     "editorial": "Editorial",
     "solutions": "Solutions",
-    "submissions": "Submissions"
+    "submissions": "Submissions",
+    "code": "Code",
+    "test_case": "Testcase"
   }
 }
