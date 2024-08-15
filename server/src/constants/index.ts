@@ -12,7 +12,8 @@ export const ROUTES = {
     PROBLEM_DETAIL: '/:slug',
     TOPIC: '/:slug/topic',
     TEST_CASE: '/:slug/testcase',
-    CAN_SEE_PROBLEM: '/:slug/can-see'
+    CAN_SEE_PROBLEM: '/:slug/can-see',
+    QUESTION_OF_TODAY: '/question-of-today'
   }
 }
 
@@ -43,6 +44,12 @@ export const ERROR_MESSAGES = {
     GET_PROBLEMS_SUCCESS: 'Get problems successful',
     GET_PROBLEM_SUCCESS: 'Get problem successful',
     GET_PROBLEM_TOPICS_SUCCESS: 'Get problem topics successful'
+  },
+  FILTERS: {
+    INVALID_FILTER_KEYS: 'Invalid filter keys',
+    INVALID_TYPE_CATEGORY_SLUG: 'Category slug must be a string',
+    INVALID_TYPE_LIMIT: 'Limit must be a number',
+    INVALID_TYPE_SKIP: 'Skip must be a number'
   }
 }
 
@@ -52,8 +59,4 @@ export const RESPONSE_MESSAGES = {
   }
 }
 
-export const enum USER_STATUS {
-  UNVERIFIED,
-  VERIFIED,
-  BANNED
-}
+export const LEET_CODE_FILTER_KEYS = ['difficulty', 'listId', 'status', 'tags']
