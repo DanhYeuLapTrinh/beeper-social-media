@@ -15,6 +15,8 @@ export interface ProblemDetailResponseAPI extends BaseAPIResponse {
   }
 }
 
+export interface ProblemResponseAPI extends BaseAPIResponse {}
+
 export interface ProblemTopicsResponseAPI extends BaseAPIResponse {
   question: {
     topicTags: { name: string; slug: string }[]

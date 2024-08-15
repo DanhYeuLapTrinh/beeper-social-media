@@ -17,7 +17,8 @@ export default function Header() {
 
   return (
     <header className='bg-background flex items-center justify-around p-3 border-b border-border '>
-      <Menubar>
+      {/* TODO: remove this later */}
+      {/* <Menubar>
         {HEADER_MENU_ITEMS.map((item) => (
           <MenubarMenu key={item.id}>
             <MenubarTrigger
@@ -29,7 +30,7 @@ export default function Header() {
             </MenubarTrigger>
           </MenubarMenu>
         ))}
-      </Menubar>
+      </Menubar> */}
       <SignedIn>
         <Button
           onClick={() => signOut({ redirectUrl: ROUTES.PUBLIC.AUTH + '/' + ROUTES.PUBLIC.SIGN_IN })}

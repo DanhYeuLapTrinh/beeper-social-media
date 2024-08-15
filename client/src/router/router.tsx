@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to={ROUTES.PRIVATE.EXPLORE} replace />
+        element: <Navigate to={ROUTES.PRIVATE.PROBLEM_SET} replace />
       },
       {
         path: ROUTES.PUBLIC.NOT_FOUND,
@@ -33,64 +33,39 @@ const router = createBrowserRouter([
       },
       {
         element: <GuardLayout />,
+        children: []
+      },
+      {
+        element: <DefaultLayout />,
         children: [
           {
-            element: <DefaultLayout />,
-            children: [
-              {
-                path: ROUTES.PRIVATE.EXPLORE,
-                element: <Home />
-              },
-              {
-                path: ROUTES.PRIVATE.COMMUNITY,
-                element: <p>Community</p>
-              },
-              {
-                path: ROUTES.PRIVATE.EVENT,
-                element: <p>Event</p>
-              },
-              {
-                path: ROUTES.PRIVATE.WATCH,
-                element: <p>Watch</p>
-              },
-              {
-                path: ROUTES.PRIVATE.MARKETPLACE,
-                element: <p>Marketplace</p>
-              },
-              {
-                path: ROUTES.PRIVATE.BY_COMMUNITIES,
-                element: <p>By Communities</p>
-              },
-              {
-                path: ROUTES.PRIVATE.BY_FRIENDS,
-                element: <p>By Friends</p>
-              }
-            ]
+            path: ROUTES.PRIVATE.PROBLEM_SET,
+            element: <Home />
+          }
+        ]
+      },
+      {
+        element: <WorkspaceLayout />,
+        children: [
+          {
+            path: ROUTES.PRIVATE.WORKSPACE_ID,
+            element: <WorkspaceRedirect />
           },
           {
-            element: <WorkspaceLayout />,
-            children: [
-              {
-                path: ROUTES.PRIVATE.WORKSPACE_ID,
-                element: <WorkspaceRedirect />
-              },
-              {
-                path: ROUTES.PRIVATE.WORKSPACE_ID_DESC,
-                element: <WorkspaceDesc />
-              },
-              {
-                path: ROUTES.PRIVATE.WORKSPACE_ID_EDITORIAL,
-                element: <WorkspaceEditoral />
-              },
-              {
-                path: ROUTES.PRIVATE.WORKSPACE_ID_SOLUTIONS,
-                element: <WorkspaceSolutions />
-              },
-              {
-                path: ROUTES.PRIVATE.WORKSPACE_ID_SUBMISSIONS,
-                element: <WorkspaceSubmissions />
-              }
-            ]
+            path: ROUTES.PRIVATE.WORKSPACE_ID_DESC,
+            element: <WorkspaceDesc />
+          },
+          {
+            path: ROUTES.PRIVATE.WORKSPACE_ID_EDITORIAL,
+            element: <WorkspaceEditoral />
+          },
+          {
+            path: ROUTES.PRIVATE.WORKSPACE_ID_SOLUTIONS,
+            element: <WorkspaceSolutions />
+          },
+          {
+            path: ROUTES.PRIVATE.WORKSPACE_ID_SUBMISSIONS,
+            element: <WorkspaceSubmissions />
           }
         ]
       },
