@@ -36,8 +36,8 @@ export default function WorkspaceHeader({
     <div className={cn('p-1 flex justify-between items-center', isCollapse ? 'py-2 flex flex-col h-full' : '')}>
       <div className={cn('flex flex-1 justify-start items-center gap-1.5', isCollapse ? 'flex flex-col gap-3' : '')}>
         {menuItems.map((item, index) => (
-          <Tooltip text={item.name}>
-            <div className='flex items-center gap-1' key={item.id}>
+          <Tooltip text={item.name} key={item.id}>
+            <div className='flex items-center gap-1'>
               <ButtonWithLoader
                 size={isCollapse ? 'icon' : 'sm'}
                 variant='ghost'
