@@ -1,40 +1,37 @@
-import { ParamsDictionary } from 'express-serve-static-core'
-
 export interface LeetCodeProblemsRequestAPI {
   categorySlug: string
   limit: number
   skip: number
-  filters: any
-}
-
-export interface LeetCodeProblemResponseAPI {
-  data: {
-    question: {
-      questionId: string
-      questionTitle: string
-      content: string
-      difficulty: string
-      likes: number
-      dislikes: number
-      hints: string[]
-      similarQuestions: string[]
-      exampleTestcases: string
-      contributors: string[]
-    }
+  filters: {
+    difficulty: string
+    listId: string
+    status: string
+    tags: string[]
   }
 }
 
-export interface LeetCodeProblemTopicsResponseAPI {
+export interface LeetCodeProblemsResponseAPI {
   data: {
-    question: {
-      topicTags: {
-        name: string
-        slug: string
+    problemsetQuestionList: {
+      total: number
+      questions: {
+        acRate: number
+        difficulty: string
+        freqBar: string
+        frontendQuestionId: number
+        isFavor: boolean
+        paidOnly: boolean
+        status: string
+        title: string
+        titleSlug: string
+        topicTags: {
+          name: string
+          id: number
+          slug: string
+        }[]
+        hasSolution: boolean
+        hasVideoSolution: boolean
       }[]
     }
   }
-}
-
-export interface GetProblemRequestParams extends ParamsDictionary {
-  slug: string
 }
