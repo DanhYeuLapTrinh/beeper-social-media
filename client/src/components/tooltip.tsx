@@ -8,7 +8,7 @@ export default function Tooltip({ text, children }: { text: string; children: Re
   return (
     <TooltipProvider>
       <ShadTooltip>
-        <TooltipTrigger>{children}</TooltipTrigger>
+        <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent>
           <Label>{t(text)}</Label>
         </TooltipContent>

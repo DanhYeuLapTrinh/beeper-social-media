@@ -19,10 +19,9 @@ query problemsetQuestionList($categorySlug: String, $limit: Int, $skip: Int, $fi
     questions: data {
       acRate
       difficulty
-      freqBar
       frontendQuestionId: questionFrontendId
       isFavor
-      paidOnly: isPaidOnly
+      isPaidOnly
       status
       title
       titleSlug
@@ -37,6 +36,7 @@ query problemsetQuestionList($categorySlug: String, $limit: Int, $skip: Int, $fi
   }
 }
 `
+
 export const GET_PROBLEM_QUERY = `
 query getQuestionDetail($titleSlug: String!) { 
   question(titleSlug: $titleSlug) { 
@@ -47,13 +47,13 @@ query getQuestionDetail($titleSlug: String!) {
     likes 
     hints
     dislikes 
-    similarQuestions 
-    exampleTestcases 
+    similarQuestions
     contributors 
     { username profileUrl } 
   } 
 }
 `
+
 export const GET_PROBLEM_TOPICS_QUERY = `
 query singleQuestionTopicTags($titleSlug: String!) {
   question(titleSlug: $titleSlug) {
@@ -61,6 +61,34 @@ query singleQuestionTopicTags($titleSlug: String!) {
       name      
       slug    
     }  
+  }
+}
+`
+
+export const GET_QUESTION_OF_TODAY_QUERY = `
+query questionOfToday {
+  activeDailyCodingChallengeQuestion {
+    date
+    userStatus
+    link
+    question {
+      acRate
+      difficulty
+      freqBar
+      frontendQuestionId: questionFrontendId
+      isFavor
+      paidOnly: isPaidOnly
+      status
+      title
+      titleSlug
+      hasVideoSolution
+      hasSolution
+      topicTags {
+        name
+        id
+        slug
+      }
+    }
   }
 }
 `

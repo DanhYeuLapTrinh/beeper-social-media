@@ -1,4 +1,4 @@
-import { useToast } from '@/components/ui/use-toast'
+import { useToast } from '../common/use-toast'
 import { ERROR_MESSAGES } from '@/constants'
 import { useAppDispatch, useAppSelector } from '@/lib/redux-toolkit/hooks'
 import { setIsLoading } from '@/lib/redux-toolkit/slices/loading.slice'
