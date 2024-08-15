@@ -6,6 +6,13 @@ export const ROUTES = {
   },
   PRIVATE: {
     ME: '/me'
+  },
+  LEET_CODE: {
+    ALL: '/all',
+    PROBLEM_DETAIL: '/:slug',
+    TOPIC: '/:slug/topic',
+    TEST_CASE: '/:slug/testcase',
+    CAN_SEE_PROBLEM: '/:slug/can-see'
   }
 }
 

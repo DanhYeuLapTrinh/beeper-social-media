@@ -9,6 +9,9 @@ export const getProblemsController = async (req: Request, res: Response) => {
   return sendResponse(res, { message: ERROR_MESSAGES.PROBLEMS.GET_PROBLEMS_SUCCESS, data: reponse })
 }
 
+// Check if user can see the problem (premium or not)
+export const canSeeProblemController = async (req: Request, res: Response) => {}
+
 // Get a single problem detail
 export const getProblemController = async (req: Request, res: Response) => {
   const slug = req.params.slug
@@ -22,3 +25,5 @@ export const getProblemTopicsController = async (req: Request, res: Response) =>
   const reponse = await leetCodeService.getProblemTopics(slug)
   return sendResponse(res, { message: ERROR_MESSAGES.PROBLEMS.GET_PROBLEM_TOPICS_SUCCESS, data: reponse })
 }
+
+export const getProblemTestCasesController = async (req: Request, res: Response) => {}

@@ -37,6 +37,7 @@ query problemsetQuestionList($categorySlug: String, $limit: Int, $skip: Int, $fi
   }
 }
 `
+
 export const GET_PROBLEM_QUERY = `
 query getQuestionDetail($titleSlug: String!) { 
   question(titleSlug: $titleSlug) { 
@@ -47,13 +48,13 @@ query getQuestionDetail($titleSlug: String!) {
     likes 
     hints
     dislikes 
-    similarQuestions 
-    exampleTestcases 
+    similarQuestions
     contributors 
     { username profileUrl } 
   } 
 }
 `
+
 export const GET_PROBLEM_TOPICS_QUERY = `
 query singleQuestionTopicTags($titleSlug: String!) {
   question(titleSlug: $titleSlug) {
