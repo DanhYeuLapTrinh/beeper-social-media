@@ -19,7 +19,7 @@ query problemsetQuestionList($categorySlug: String, $limit: Int, $skip: Int, $fi
     questions: data {
       acRate
       difficulty
-      frontendQuestionId: questionFrontendId
+      frontendProblemId: questionFrontendId
       isFavor
       isPaidOnly
       status
@@ -40,28 +40,23 @@ query problemsetQuestionList($categorySlug: String, $limit: Int, $skip: Int, $fi
 export const GET_PROBLEM_QUERY = `
 query getQuestionDetail($titleSlug: String!) { 
   question(titleSlug: $titleSlug) { 
+    acRate
     questionId 
-    questionTitle 
+    frontendProblemId: questionFrontendId
+    title
+    titleSlug 
     content 
     difficulty 
     likes 
     hints
     dislikes 
-    similarQuestions
-    contributors 
-    { username profileUrl } 
+    similarQuestions 
+    isPaidOnly
+    topicTags { name slug }
+    hasSolution
+    hasVideoSolution
+    exampleTestcaseList
   } 
-}
-`
-
-export const GET_PROBLEM_TOPICS_QUERY = `
-query singleQuestionTopicTags($titleSlug: String!) {
-  question(titleSlug: $titleSlug) {
-    topicTags {
-      name      
-      slug    
-    }  
-  }
 }
 `
 
