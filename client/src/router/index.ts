@@ -5,7 +5,7 @@ export const ROUTES = {
     COMMUNITY: '/communities',
     WATCH: '/watch',
     MARKETPLACE: '/marketplace',
-    EXPLORE: '/explore',
+    PROBLEM_SET: '/problemset',
     BY_FRIENDS: '/by-friends',
     BY_COMMUNITIES: '/by-communities',
     WORKSPACE: '/workspace',

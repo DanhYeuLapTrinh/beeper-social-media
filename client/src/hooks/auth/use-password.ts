@@ -1,8 +1,9 @@
 import { useToast } from '../common/use-toast'
 import { ERROR_MESSAGES, LOCAL_STORAGE_KEYS } from '@/constants'
 import { useAppDispatch, useAppSelector } from '@/lib/redux-toolkit/hooks'
+import { setState } from '@/lib/redux-toolkit/slices/auth.slice'
 import { setIsLoading } from '@/lib/redux-toolkit/slices/loading.slice'
-import { setSuccessfulCreation, setSuccessfulFirstFactor } from '@/lib/redux-toolkit/slices/password.slice'
+import { setSuccessfulCreation, setSuccessfulFirstFactor } from '@/lib/redux-toolkit/slices/auth.slice'
 import { getClerkError } from '@/lib/utils'
 import { ClerkError } from '@/models/error.model'
 import { forgotPasswordSchema, resetPasswordSchema } from '@/models/schemas/auth.schema'
@@ -42,12 +43,13 @@ export const usePassword = () => {
         strategy: 'reset_password_email_code',
         identifier: email
       })
+      dispatch(setIsLoading(false))
+      dispatch(setState('otpVerification'))
       dispatch(setSuccessfulCreation(true))
       toast({
         title: t('email_sent'),
         description: t('email_sent_desc')
       })
-      dispatch(setIsLoading(false))
       setValue(email)
     } catch (error) {
       const err = JSON.parse(JSON.stringify(error)) as ClerkError
@@ -71,8 +73,9 @@ export const usePassword = () => {
         code
       })
       dispatch(setIsLoading(false))
-      removeValue()
+      dispatch(setState('resetPassword'))
       dispatch(setSuccessfulFirstFactor(true))
+      removeValue()
     } catch (error) {
       const err = JSON.parse(JSON.stringify(error)) as ClerkError
       toast({
@@ -97,8 +100,6 @@ export const usePassword = () => {
         setActive({ session: result.createdSessionId })
       }
       dispatch(setIsLoading(false))
-      // dispatch(setSuccessfulCreation(false))
-      // dispatch(setSuccessfulFirstFactor(false))
     } catch (error) {
       const err = JSON.parse(JSON.stringify(error)) as ClerkError
       toast({
@@ -107,6 +108,10 @@ export const usePassword = () => {
       })
       dispatch(setIsLoading(false))
       resetMethods.reset()
+    } finally {
+      dispatch(setState('forgotPassword'))
+      dispatch(setSuccessfulCreation(false))
+      dispatch(setSuccessfulFirstFactor(false))
     }
   }
 
