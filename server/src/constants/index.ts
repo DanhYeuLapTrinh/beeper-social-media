@@ -9,7 +9,7 @@ export const ROUTES = {
   },
   LEET_CODE: {
     ALL: '/all',
-    PROBLEM_DETAIL: '/:slug',
+    PROBLEM_DETAIL: '/:titleSlug',
     TOPIC: '/:slug/topic',
     TEST_CASE: '/:slug/testcase',
     CAN_SEE_PROBLEM: '/:slug/can-see',
@@ -27,6 +27,11 @@ export const enum HTTP_STATUS_CODES {
   CONFLICT = 409, // conflict or duplicate resource
   UNPROCESSABLE_ENTITY = 422, // missing required fields
   INTERNAL_SERVER_ERROR = 500 // server error
+}
+
+export enum USER_STATUS {
+  NORMAL,
+  PREMIUM
 }
 
 export const ERROR_MESSAGES = {

@@ -5,3 +5,5 @@ export class BaseModel {
   clerk_id?: string
   created_at?: Date
 }
+
+export type Difficulty = 'Easy' | 'Medium' | 'Hard'
