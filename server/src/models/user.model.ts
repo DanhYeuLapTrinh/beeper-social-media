@@ -59,7 +59,7 @@ export class User extends BaseModel {
     this.date_of_birth = date_of_birth
     this.username = username || ''
     this.password = password
-    this.status = status || USER_STATUS.UNVERIFIED
+    this.status = status || USER_STATUS.NORMAL
     this.bio = bio || ''
     this.location = location || ''
     this.website = website || ''

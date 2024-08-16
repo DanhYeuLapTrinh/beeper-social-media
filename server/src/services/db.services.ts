@@ -1,3 +1,4 @@
+import { Problem } from '@/models/problem.model'
 import { User } from '@/models/user.model'
 import { config } from 'dotenv'
 import { Collection, Db, MongoClient } from 'mongodb'
@@ -30,6 +31,10 @@ class DBService {
 
   get users(): Collection<User> {
     return this.db.collection(process.env.USERS_COLLECTION || '')
+  }
+
+  get problems(): Collection<Problem> {
+    return this.db.collection(process.env.PROBLEMS_COLLECTION || '')
   }
 }
 
