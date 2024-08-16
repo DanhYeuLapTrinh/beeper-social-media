@@ -1,5 +1,11 @@
 import { clientAxios } from '@/lib/axios/axios'
-import { ProblemDetailResponseAPI, ProblemResponseAPI, ProblemTopicsResponseAPI } from '@/models/problem.model'
+import {
+  LeetCodeFilters,
+  ProblemDetailResponseAPI,
+  ProblemsResponseAPI,
+  ProblemsWithPagination,
+  ProblemTopicsResponseAPI
+} from '@/models/problem.model'
 
 export const getProblemDetail = async (titleSlug: string): Promise<ProblemDetailResponseAPI> => {
   const { data } = await clientAxios.get<ProblemDetailResponseAPI>(`leet-code/${titleSlug}`)
@@ -11,7 +17,17 @@ export const getProblemTopics = async (titleSlug: string) => {
   return data
 }
 
-export const getProblems = async () => {
-  const { data } = await clientAxios.get<ProblemResponseAPI[]>('leet-code/all')
-  return data
+export const getProblems = async (variables?: LeetCodeFilters): Promise<ProblemsWithPagination> => {
+  const fitlers = variables || {
+    categorySlug: 'all-code-essentials',
+    limit: 100,
+    skip: 0,
+    filters: {}
+  }
+  const { data } = await clientAxios.post<ProblemsResponseAPI>('leet-code/all', fitlers)
+
+  return {
+    problems: data.data.problemsetQuestionList.questions,
+    total: data.data.problemsetQuestionList.total
+  }
 }

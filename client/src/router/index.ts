@@ -16,13 +16,7 @@ export const ROUTES = {
     WORKSPACE_ID_SUBMISSIONS: '/workspace/:workspaceId/submissions'
   },
   PUBLIC: {
-    AUTH: '/auth',
-    SIGN_IN: 'sign-in',
-    SIGN_UP: 'sign-up',
     SSO_CALLBACK: '/sso-callback',
-    FORGOT_PASSWORD: 'forgot-password',
-    OTP_VERIFICATION: 'otp-verification',
-    RESET_PASSWORD: 'reset-password',
     NOT_FOUND: '*'
   }
 }

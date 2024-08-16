@@ -1,6 +1,5 @@
 import AuthLayout from '@/layouts/auth.layout'
 import Popup from './popup'
-import { ROUTES } from '@/router'
 import { SignedIn, SignedOut, useClerk, UserButton } from '@clerk/clerk-react'
 import { useTranslation } from 'react-i18next'
 import { Button } from './ui/button'
@@ -20,10 +19,7 @@ export default function Header() {
   return (
     <header className='bg-background flex items-center justify-around p-3 border-b border-border '>
       <SignedIn>
-        <Button
-          onClick={() => signOut({ redirectUrl: ROUTES.PUBLIC.AUTH + '/' + ROUTES.PUBLIC.SIGN_IN })}
-          variant='destructive'
-        >
+        <Button onClick={() => signOut()} variant='destructive'>
           Sign out
         </Button>
         <UserButton />
