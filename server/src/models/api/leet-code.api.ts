@@ -1,4 +1,4 @@
-export interface LeetCodeProblemsRequestAPI {
+export interface LeetCodeFilters {
   categorySlug: string
   limit: number
   skip: number

@@ -1,5 +1,5 @@
 import { GET_ALL_PROBLEMS_QUERY, leetCodeAxios } from '@/lib/axios/axios'
-import { LeetCodeProblemsRequestAPI, LeetCodeProblemsResponseAPI } from '@/models/api/leet-code.api'
+import { LeetCodeFilters, LeetCodeProblemsResponseAPI } from '@/models/api/leet-code.api'
 import { config } from 'dotenv'
 
 config()
@@ -10,7 +10,7 @@ if (!process.env.LEET_CODE_URL) {
 
 class LeetCodeService {
   // Get problems
-  async getProblems(variables: LeetCodeProblemsRequestAPI) {
+  async getProblems(variables: LeetCodeFilters) {
     const { data } = await leetCodeAxios.post<LeetCodeProblemsResponseAPI>('', {
       query: GET_ALL_PROBLEMS_QUERY,
       variables
