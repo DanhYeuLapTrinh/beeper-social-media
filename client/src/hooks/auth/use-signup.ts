@@ -1,4 +1,3 @@
-import { useToast } from '../common/use-toast'
 import { ERROR_MESSAGES } from '@/constants'
 import { useAppDispatch, useAppSelector } from '@/lib/redux-toolkit/hooks'
 import { goToStep } from '@/lib/redux-toolkit/slices/auth.slice'
@@ -6,13 +5,13 @@ import { setIsLoading } from '@/lib/redux-toolkit/slices/loading.slice'
 import { getClerkError } from '@/lib/utils'
 import { ClerkError } from '@/models/error.model'
 import { signupSchema } from '@/models/schemas/auth.schema'
-import { ROUTES } from '@/router'
 import { useSignUp } from '@clerk/clerk-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
+import { useToast } from '../common/use-toast'
 
 export type SignupFormValues = z.infer<typeof signupSchema>
 
@@ -81,7 +80,6 @@ export const useSignup = () => {
       })
       if (completeSignup.status === 'complete') {
         await setActive({ session: completeSignup.createdSessionId })
-        navigate(ROUTES.PRIVATE.EXPLORE)
         toast({
           title: t('welcome_signup'),
           description: t('welcome_signup_desc')

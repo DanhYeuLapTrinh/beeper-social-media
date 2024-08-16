@@ -1,36 +1,24 @@
-import { Menubar, MenubarMenu, MenubarTrigger } from '@/components/ui/menubar'
-import { LOCAL_STORAGE_KEYS } from '@/constants'
-import { HEADER_MENU_ITEMS } from '@/constants/menu-items'
-import { SignedIn, useClerk, UserButton } from '@clerk/clerk-react'
-import { useTranslation } from 'react-i18next'
-import { useLocalStorage } from 'usehooks-ts'
-import { Button } from './ui/button'
+import AuthLayout from '@/layouts/auth.layout'
+import Popup from './popup'
 import { ROUTES } from '@/router'
-import { ModeToggle } from './mode-toggle'
+import { SignedIn, SignedOut, useClerk, UserButton } from '@clerk/clerk-react'
+import { useTranslation } from 'react-i18next'
+import { Button } from './ui/button'
+import { useAppDispatch } from '@/lib/redux-toolkit/hooks'
+import { setCurrentStep, setState } from '@/lib/redux-toolkit/slices/auth.slice'
 
 export default function Header() {
-  const [value, setValue] = useLocalStorage(LOCAL_STORAGE_KEYS.HEADER_OPTION, 'explore')
+  const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const { signOut } = useClerk()
 
-  const isChosen = (option: string) => value === option
+  const handleClose = () => {
+    dispatch(setState('signIn'))
+    dispatch(setCurrentStep(1))
+  }
 
   return (
     <header className='bg-background flex items-center justify-around p-3 border-b border-border '>
-      {/* TODO: remove this later */}
-      {/* <Menubar>
-        {HEADER_MENU_ITEMS.map((item) => (
-          <MenubarMenu key={item.id}>
-            <MenubarTrigger
-              className='cursor-pointer'
-              onClick={() => setValue(item.value)}
-              data-state={isChosen(item.value) ? 'open' : 'closed'}
-            >
-              {t(item.name)}
-            </MenubarTrigger>
-          </MenubarMenu>
-        ))}
-      </Menubar> */}
       <SignedIn>
         <Button
           onClick={() => signOut({ redirectUrl: ROUTES.PUBLIC.AUTH + '/' + ROUTES.PUBLIC.SIGN_IN })}
@@ -38,9 +26,17 @@ export default function Header() {
         >
           Sign out
         </Button>
+        <UserButton />
       </SignedIn>
-      <ModeToggle />
-      <UserButton />
+      <SignedOut>
+        <div className='flex items-center gap-2'>
+          <Popup className='w-96' content={<AuthLayout />} timeOut={100} onClose={handleClose}>
+            <Button size='sm' variant='secondary' className='dark:text-white'>
+              {t('sign_in')}
+            </Button>
+          </Popup>
+        </div>
+      </SignedOut>
     </header>
   )
 }

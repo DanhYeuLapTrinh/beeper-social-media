@@ -23,7 +23,7 @@ export default function Social({ firstTitle, secondTitle, firstFunction, secondF
       </Button>
       <Button variant='outline' className='w-full' onClick={secondFunction}>
         <div className='flex items-center w-full'>
-          <Icons.facebook className='w-6 h-6 mr-1' />
+          <Icons.github className='w-6 h-6 mr-1 dark:fill-white' />
           <Label className='flex-1'>{t(secondTitle as string)}</Label>
         </div>
       </Button>
