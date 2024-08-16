@@ -4,19 +4,19 @@ import ButtonWithLoader from '@/components/ui/button-with-loader'
 import { Label } from '@/components/ui/label'
 import { LOCAL_STORAGE_KEYS } from '@/constants'
 import { usePassword } from '@/hooks/auth/use-password'
-import { useAppSelector } from '@/lib/redux-toolkit/hooks'
+import { useAppDispatch, useAppSelector } from '@/lib/redux-toolkit/hooks'
+import { setState, setSuccessfulCreation } from '@/lib/redux-toolkit/slices/auth.slice'
 import { maskEmail } from '@/lib/utils'
-import { ROUTES } from '@/router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Navigate } from 'react-router-dom'
 import { useLocalStorage } from 'usehooks-ts'
 
 export default function OTPFormProvider() {
+  const dispatch = useAppDispatch()
   const [value, setValue, removeValue] = useLocalStorage(LOCAL_STORAGE_KEYS.EMAIL_TEMP, '')
   const [otp, setOtp] = useState('')
   const { verifyEmailCode, createEmailCode, isLoading } = usePassword()
-  const { successfulFirstFactor, successfulCreation } = useAppSelector((state) => state.password)
+  const { successfulFirstFactor, successfulCreation } = useAppSelector((state) => state.auth)
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function OTPFormProvider() {
 
   if (!successfulFirstFactor && successfulCreation) {
     return (
-      <div className='flex flex-col items-center w-96 gap-3 px-2'>
+      <div className='flex flex-col items-center w-full gap-3 px-2'>
         <AuthIcons type='mail' />
         <Label className='block text-2xl font-bold'>{t('otp')}</Label>
         <div className='flex flex-col gap-1'>
@@ -51,6 +51,7 @@ export default function OTPFormProvider() {
       </div>
     )
   } else {
-    return <Navigate to={ROUTES.PUBLIC.AUTH + '/' + ROUTES.PUBLIC.RESET_PASSWORD} />
+    dispatch(setState('forgotPassword'))
+    dispatch(setSuccessfulCreation(false))
   }
 }

@@ -5,8 +5,9 @@ import { FormProvider } from 'react-hook-form'
 
 export default function SignupFormProvider() {
   const { methods, onSubmit } = useSignup()
+
   return (
-    <div className='flex flex-col items-center w-96 gap-3'>
+    <div className='flex flex-col items-center w-full gap-3'>
       <FormProvider {...methods}>
         <form className='w-full' onSubmit={methods.handleSubmit(onSubmit)}>
           <SignupStep />
