@@ -1,4 +1,5 @@
-import { Problem } from '@/models/problem.model'
+import { TopicTag } from '@/models/base.model'
+import { DBQuestion } from '@/models/question.model'
 import { User } from '@/models/user.model'
 import { config } from 'dotenv'
 import { Collection, Db, MongoClient } from 'mongodb'
@@ -33,8 +34,11 @@ class DBService {
     return this.db.collection(process.env.USERS_COLLECTION || '')
   }
 
-  get problems(): Collection<Problem> {
-    return this.db.collection(process.env.PROBLEMS_COLLECTION || '')
+  get questions(): Collection<DBQuestion> {
+    return this.db.collection(process.env.QUESTIONS_COLLECTION || '')
+  }
+  get topicTags(): Collection<TopicTag> {
+    return this.db.collection(process.env.TOPIC_TAGS_COLLECTION || '')
   }
 }
 

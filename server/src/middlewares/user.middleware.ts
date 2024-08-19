@@ -1,6 +1,5 @@
 import dbService from '@/services/db.services'
 import { ERROR_MESSAGES, HTTP_STATUS_CODES } from '@/constants'
-import { BaseError } from '@/models/api/error.api'
 import { TokenPayload } from '@/models/token.model'
 import { validate } from '@/utils/validator'
 import { createClerkClient } from '@clerk/clerk-sdk-node'
@@ -9,6 +8,7 @@ import { Request } from 'express'
 import { UnauthorizedError } from 'express-oauth2-jwt-bearer'
 import { checkSchema } from 'express-validator'
 import { ObjectId } from 'mongodb'
+import { BaseError } from '@/models/api/common'
 
 config()
 
