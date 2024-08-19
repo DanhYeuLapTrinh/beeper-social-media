@@ -9,10 +9,11 @@ export const ROUTES = {
   },
   LEET_CODE: {
     ALL: '/all',
-    PROBLEM_DETAIL: '/:titleSlug',
-    TOPIC: '/:slug/topic',
-    TEST_CASE: '/:slug/testcase',
-    CAN_SEE_PROBLEM: '/:slug/can-see',
+    QUESTION: '/:titleSlug',
+    CONTENT: '/:titleSlug/content',
+    TOPIC: '/:titleSlug/topic',
+    HINTS: '/:titleSlug/hints',
+    TEST_CASE: '/:titleSlug/testcase',
     QUESTION_OF_TODAY: '/question-of-today'
   }
 }
@@ -45,10 +46,9 @@ export const ERROR_MESSAGES = {
     USER_NOT_FOUND: 'User not found',
     USER_NOT_VERIFIED: 'User not verified'
   },
-  PROBLEMS: {
-    GET_PROBLEMS_SUCCESS: 'Get problems successful',
-    GET_PROBLEM_SUCCESS: 'Get problem successful',
-    GET_PROBLEM_TOPICS_SUCCESS: 'Get problem topics successful'
+  QUESTIONS: {
+    GET_QUESTIONS_SUCCESS: 'Get questions successful',
+    GET_QUESTION_SUCCESS: 'Get question successful'
   },
   FILTERS: {
     INVALID_FILTER_KEYS: 'Invalid filter keys',

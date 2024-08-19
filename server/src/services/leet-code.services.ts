@@ -1,8 +1,15 @@
-import { GET_ALL_PROBLEMS_QUERY, GET_PROBLEM_QUERY, leetCodeAxios } from '@/lib/axios/axios'
-import { LeetCodeFilters, LeetCodeProblemResponseAPI, LeetCodeProblemsResponseAPI } from '@/models/api/leet-code.api'
-import { Problem } from '@/models/problem.model'
-import { config } from 'dotenv'
 import dbService from './db.services'
+import { DBQuestion } from '@/models/question.model'
+import {
+  GetQuestionsResponseAPI as LeetCodeQuestions,
+  GetQuestionResponseAPI as LeetCodeQuestion,
+  GetQuestionTopicTagsResponseAPI as LeetCodeTopicTags
+} from '@/models/api/leet-code/responses'
+import { leetCodeAxios } from '@/lib/axios/axios'
+import { Filter } from '@/models/base.model'
+import { TitleSlugParamsAPI } from '@/models/api/leet-code/requests'
+import { config } from 'dotenv'
+import { GET_QUESTION_QUERY, GET_QUESTION_TOPIC_TAGS_QUERY, GET_QUESTIONS_QUERY } from '@/models/api/leet-code/queries'
 
 config()
 
@@ -11,18 +18,45 @@ if (!process.env.LEET_CODE_URL) {
 }
 
 class LeetCodeService {
-  // Get problems
-  async getProblems(variables: LeetCodeFilters) {
-    const { data } = await leetCodeAxios.post<LeetCodeProblemsResponseAPI>('', {
-      query: GET_ALL_PROBLEMS_QUERY,
+  // Check question in DB
+  async checkQuestionInDB(titleSlug: string): Promise<DBQuestion> {
+    const questionInDB = await dbService.questions.findOne({ titleSlug })
+    if (!questionInDB) {
+      const { data: questionData } = await leetCodeService.getQuestion({ titleSlug })
+      const { data: questionTopicTags } = await leetCodeService.getQuestionTopicTags({ titleSlug })
+      const question = new DBQuestion({
+        ...questionData.question,
+        topicTags: questionTopicTags.question.topicTags.map((tag) => tag.slug)
+      })
+      await dbService.questions.insertOne(question)
+      // Check if topic tags exist in the database then update them otherwise insert them
+      for (const tag of questionTopicTags.question.topicTags) {
+        await dbService.topicTags.updateOne({ slug: tag.slug }, { $set: tag }, { upsert: true })
+      }
+      return question
+    }
+    return questionInDB as DBQuestion
+  }
+  // Get questions
+  async getQuestions(variables: Filter) {
+    const { data } = await leetCodeAxios.post<LeetCodeQuestions>('', {
+      query: GET_QUESTIONS_QUERY,
       variables
     })
     return data
   }
-  // Get problem
-  async getProblem(variables: { titleSlug: string }) {
-    const { data } = await leetCodeAxios.post<LeetCodeProblemResponseAPI>('', {
-      query: GET_PROBLEM_QUERY,
+  // Get question
+  async getQuestion(variables: TitleSlugParamsAPI) {
+    const { data } = await leetCodeAxios.post<LeetCodeQuestion>('', {
+      query: GET_QUESTION_QUERY,
+      variables
+    })
+    return data
+  }
+  // Get question topic tags
+  async getQuestionTopicTags(variables: TitleSlugParamsAPI) {
+    const { data } = await leetCodeAxios.post<LeetCodeTopicTags>('', {
+      query: GET_QUESTION_TOPIC_TAGS_QUERY,
       variables
     })
     return data
