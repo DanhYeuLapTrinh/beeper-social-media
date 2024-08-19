@@ -1,9 +1,8 @@
 import { ERROR_MESSAGES, LEET_CODE_FILTER_KEYS } from '@/constants'
-import { filtersSchema } from '@/schemas'
 import { validate } from '@/utils/validator'
 import { checkSchema } from 'express-validator'
 
-export const getProblemsMiddleware = validate(
+export const getQuestionsMiddleware = validate(
   checkSchema(
     {
       categorySlug: {
