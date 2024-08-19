@@ -3,19 +3,19 @@ import styles from '../get-problem-detail/get-problem-detail.module.scss'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Badge } from '@/components/ui/badge'
 import { PROBLEM_ACCORDION_ITEMS } from '@/constants/menu-items'
-import { ProblemDetailResponseAPI, ProblemTopicsResponseAPI, SimilarQuestion } from '@/models/problem.model'
 import { useTranslation } from 'react-i18next'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { getDifficultyColor } from '@/lib/utils'
 import { useNavigate } from 'react-router-dom'
+import { TopicTag } from '@/models/base.model'
 
 interface GetProblemAccordionProps {
-  data: ProblemDetailResponseAPI
-  topics: ProblemTopicsResponseAPI
+  topics: TopicTag[]
+  hints: string[]
 }
 
-export default function ProblemAccordion({ data, topics }: GetProblemAccordionProps) {
+export default function ProblemAccordion({ hints, topics }: GetProblemAccordionProps) {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
@@ -28,12 +28,12 @@ export default function ProblemAccordion({ data, topics }: GetProblemAccordionPr
     <div className='mt-24'>
       {PROBLEM_ACCORDION_ITEMS.map((item) => {
         let content = null
-        const similarQuestions: SimilarQuestion[] = JSON.parse(data.question.similarQuestions)
+        // const similarQuestions: SimilarQuestion[] = JSON.parse(data.question.similarQuestions)
         switch (item.name) {
           case 'topics':
             content = (
               <div className='flex items-center gap-2'>
-                {topics.question.topicTags.map((topic) => (
+                {topics.map((topic) => (
                   <Badge key={topic.slug} variant='secondary'>
                     {topic.name}
                   </Badge>
@@ -41,25 +41,25 @@ export default function ProblemAccordion({ data, topics }: GetProblemAccordionPr
               </div>
             )
             break
-          case 'similar_questions':
-            content = (
-              <div className='flex flex-col gap-2'>
-                {similarQuestions.map((item) => (
-                  <div key={item.titleSlug} className='flex justify-between pl-[16px]'>
-                    <Button variant='link' onClick={() => handleNavigate(item.titleSlug)}>
-                      {item.title}
-                    </Button>
-                    <Label className={getDifficultyColor(item.difficulty)}>{item.difficulty}</Label>
-                  </div>
-                ))}
-              </div>
-            )
+          // case 'similar_questions':
+          //   content = (
+          //     <div className='flex flex-col gap-2'>
+          //       {similarQuestions.map((item) => (
+          //         <div key={item.titleSlug} className='flex justify-between pl-[16px]'>
+          //           <Button variant='link' onClick={() => handleNavigate(item.titleSlug)}>
+          //             {item.title}
+          //           </Button>
+          //           <Label className={getDifficultyColor(item.difficulty)}>{item.difficulty}</Label>
+          //         </div>
+          //       ))}
+          //     </div>
+          //   )
         }
         if (item.name === 'hints') {
-          if (data.question.hints.length > 0) {
+          if (hints.length > 0) {
             return (
               <div key={item.id}>
-                {data.question.hints.map((hint, index) => (
+                {hints.map((hint, index) => (
                   <Accordion key={hint} type='single' collapsible>
                     <AccordionItem value={item.value}>
                       <AccordionTrigger>

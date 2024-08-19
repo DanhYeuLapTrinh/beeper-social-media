@@ -1,10 +1,9 @@
-import Loader from '@/components/ui/loader'
-import parse from 'html-react-parser'
-import styles from './get-problem-detail.module.scss'
-import GetProblemAccordion from '../get-problem-accordion/get-problem-accordion'
 import NotFound from '@/pages/not-found'
+import parse from 'html-react-parser'
+import GetProblemAccordion from '../get-problem-accordion/get-problem-accordion'
+import styles from './get-problem-detail.module.scss'
+import { useProblemQueries } from '@/hooks/problems/use-problem'
 import { useParams } from 'react-router-dom'
-import { useProblemDetail } from '@/hooks/problems/use-problem-detail'
 
 export type ProblemDetailParams = {
   workspaceId: string
@@ -12,24 +11,28 @@ export type ProblemDetailParams = {
 
 export default function GetProblemDetail() {
   const { workspaceId } = useParams<ProblemDetailParams>()
-  const { '0': problemDetail, '1': problemTopics } = useProblemDetail(String(workspaceId))
+  const {
+    '0': { data: problemHeader },
+    '1': { data: problemContent },
+    '2': { data: problemTopic },
+    '3': { data: problemHints },
+    '4': { data: problemTestcase }
+  } = useProblemQueries(String(workspaceId))
 
-  if (problemDetail.isLoading || problemTopics.isLoading) {
-    return <Loader isLoading={problemDetail.isLoading || problemTopics.isLoading} content={null} className='w-6 h-6' />
-  } else if (!problemDetail.data?.question || !problemTopics.data?.question) {
+  if (!problemHeader || !problemContent || !problemTopic || !problemHints || !problemTestcase) {
     return <NotFound />
   }
 
-  const parsedContent = parse(problemDetail.data.question.content)
+  const parsedContent = parse(problemContent.data.content)
 
   return (
     <div className='flex flex-col'>
       <div className='flex flex-col gap-4 px-4 py-5 min-w-96'>
         <h1 className='text-3xl font-semibold'>
-          {problemDetail.data?.question.questionId + '. ' + problemDetail.data.question.questionTitle}
+          {problemHeader.data?.frontendQuestionId + '. ' + problemHeader.data?.title}
         </h1>
         <div className={styles.content}>{parsedContent}</div>
-        <GetProblemAccordion data={problemDetail.data} topics={problemTopics.data} />
+        <GetProblemAccordion topics={problemTopic.data.topicTags} hints={problemHints.data.hints} />
       </div>
     </div>
   )
