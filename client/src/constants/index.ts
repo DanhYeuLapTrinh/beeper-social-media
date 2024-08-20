@@ -43,3 +43,22 @@ export const LANGUAGES: Record<string, any> = {
     lang: langs.csharp()
   }
 }
+
+export const PROBLEM_QUERIES = [
+  {
+    queryKey: ['problemHeader'],
+    params: ''
+  },
+  {
+    queryKey: ['problemContent', 'content'],
+    params: 'content'
+  },
+  {
+    queryKey: ['problemTopic', 'topic'],
+    params: 'topic'
+  },
+  {
+    queryKey: ['problemHints', 'hints'],
+    params: 'hints'
+  }
+]
