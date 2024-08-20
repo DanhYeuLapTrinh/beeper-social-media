@@ -1,12 +1,4 @@
-import { BaseModel, BaseQuestion, BaseQuestionType, TopicTag } from './base.model'
-
-interface LCQuestionType {
-  topicTags: TopicTag[]
-}
-
-interface DBQuestionType {
-  topicTags: string[]
-}
+import { BaseQuestion, TopicTag } from './base.model'
 
 export class LCQuestion extends BaseQuestion {
   topicTags: TopicTag[]
@@ -26,7 +18,7 @@ export class LCQuestion extends BaseQuestion {
     hasSolution,
     hasVideoSolution,
     topicTags
-  }: BaseQuestionType & Partial<BaseModel> & LCQuestionType) {
+  }: LCQuestion) {
     super({
       _id,
       title,
@@ -65,7 +57,7 @@ export class DBQuestion extends BaseQuestion {
     hasSolution,
     hasVideoSolution,
     topicTags
-  }: BaseQuestionType & Partial<BaseModel> & DBQuestionType) {
+  }: DBQuestion) {
     super({
       _id,
       title,
