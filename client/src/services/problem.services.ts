@@ -1,17 +1,21 @@
 import { clientAxios } from '@/lib/axios/axios'
-import { ProblemDetailResponseAPI, ProblemResponseAPI, ProblemTopicsResponseAPI } from '@/models/problem.model'
+import { GetProblemResponseAPI, GetProblemsResponseAPI } from '@/models/api/responses'
+import { Filter } from '@/models/base.model'
 
-export const getProblemDetail = async (titleSlug: string): Promise<ProblemDetailResponseAPI> => {
-  const { data } = await clientAxios.get<ProblemDetailResponseAPI>(`leet-code/${titleSlug}`)
+export const getProblem = async (titleSlug: string, suffix?: string): Promise<GetProblemResponseAPI> => {
+  const url = suffix ? `leet-code/${titleSlug}/${suffix}` : `leet-code/${titleSlug}`
+  const { data } = await clientAxios.get<GetProblemResponseAPI>(url)
   return data
 }
 
-export const getProblemTopics = async (titleSlug: string) => {
-  const { data } = await clientAxios.get<ProblemTopicsResponseAPI>(`leet-code/${titleSlug}/topic`)
-  return data
-}
+export const getProblems = async (variables?: Filter): Promise<GetProblemsResponseAPI> => {
+  const fitlers = variables || {
+    categorySlug: 'all-code-essentials',
+    limit: 100,
+    skip: 0,
+    filters: {}
+  }
+  const { data } = await clientAxios.post<GetProblemsResponseAPI>('leet-code/all', fitlers)
 
-export const getProblems = async () => {
-  const { data } = await clientAxios.get<ProblemResponseAPI[]>('leet-code/all')
   return data
 }

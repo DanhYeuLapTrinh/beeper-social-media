@@ -44,7 +44,13 @@ export const ERROR_MESSAGES = {
     EMPTY_BODY: 'Request body is missing or empty',
     MISMATCH_TOKEN_VERSION: 'Token version mismatch',
     USER_NOT_FOUND: 'User not found',
-    USER_NOT_VERIFIED: 'User not verified'
+    USER_NOT_VERIFIED: 'User not verified',
+    UNAUTHORIZED: 'Unauthorized access',
+    NOT_FOUND: 'Resource not found',
+    FORBIDDEN: 'Forbidden access',
+    BAD_REQUEST: 'Bad request',
+    CONFLICT: 'Conflict or duplicate resource',
+    REDIS_TIMEOUT: 'Redis takes too long to respond'
   },
   QUESTIONS: {
     GET_QUESTIONS_SUCCESS: 'Get questions successful',
@@ -65,3 +71,14 @@ export const RESPONSE_MESSAGES = {
 }
 
 export const LEET_CODE_FILTER_KEYS = ['difficulty', 'listId', 'status', 'tags']
+
+export const CACHE_KEYS = {
+  QUESTION: {
+    PREFIX: 'question',
+    HEADER: 'header',
+    CONTENT: 'content',
+    TOPIC: 'topic',
+    HINTS: 'hints',
+    TEST_CASE: 'testcase'
+  }
+}

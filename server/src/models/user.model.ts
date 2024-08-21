@@ -1,9 +1,9 @@
-import { ObjectId } from 'mongodb'
 import { BaseModel } from './base.model'
 import { USER_STATUS } from '@/constants'
 
 export class User extends BaseModel {
   name: string
+  clerk_id: string
   email: string
   updated_at: Date
   date_of_birth: Date
@@ -31,23 +31,7 @@ export class User extends BaseModel {
     website,
     avatar,
     cover_photo
-  }: {
-    _id?: ObjectId
-    clerk_id?: string
-    created_at?: Date
-    updated_at?: Date
-    name: string
-    email: string
-    date_of_birth: Date
-    username?: string
-    password: string
-    status?: USER_STATUS
-    bio?: string
-    location?: string
-    website?: string
-    avatar?: string
-    cover_photo?: string
-  }) {
+  }: User) {
     super()
     const date = new Date()
     this._id = _id

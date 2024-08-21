@@ -9,31 +9,21 @@ export interface Filter {
   tags: string[]
 }
 
-export interface TopicTag {
-  name: string
-  slug: string
-}
-
-export interface BaseQuestionType {
-  title: string
-  titleSlug: string
-  difficulty: Difficulty
-  content: string
-  likes: number
-  dislikes: number
-  isPaidOnly: number
-  frontendQuestionId: number
-  exampleTestcaseList: string[]
-  hints: string[]
-  acRate: number
-  hasSolution: boolean
-  hasVideoSolution: boolean
-}
 // Base Model
 export class BaseModel {
   _id?: ObjectId
-  clerk_id?: string
   created_at?: Date
+}
+
+export class TopicTag extends BaseModel {
+  name: string
+  slug: string
+  constructor({ _id, name, slug }: TopicTag) {
+    super()
+    this._id = _id
+    this.name = name
+    this.slug = slug
+  }
 }
 
 export class BaseQuestion extends BaseModel {
@@ -52,6 +42,7 @@ export class BaseQuestion extends BaseModel {
   hasVideoSolution: boolean
   constructor({
     _id,
+    created_at,
     title,
     titleSlug,
     difficulty,
@@ -65,9 +56,10 @@ export class BaseQuestion extends BaseModel {
     acRate,
     hasSolution,
     hasVideoSolution
-  }: BaseQuestionType & Partial<BaseModel>) {
+  }: BaseQuestion) {
     super()
     this._id = _id
+    this.created_at = created_at || new Date()
     this.title = title
     this.titleSlug = titleSlug
     this.difficulty = difficulty

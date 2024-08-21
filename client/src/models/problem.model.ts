@@ -1,31 +1,83 @@
-import { BaseAPIResponse } from './base.model'
+import { BaseProblem, TopicTag } from './base.model'
 
-export interface ProblemDetailResponseAPI extends BaseAPIResponse {
-  question: {
-    questionId: string
-    questionTitle: string
-    content: string
-    difficulty: 'Easy' | 'Medium' | 'Hard'
-    likes: number
-    dislikes: number
-    hints: string[]
-    similarQuestions: string
-    exampleTestcases: string
-    contributors: string[]
+export class LCProblem extends BaseProblem {
+  topicTags: TopicTag[]
+  constructor({
+    _id,
+    created_at,
+    title,
+    titleSlug,
+    difficulty,
+    content,
+    likes,
+    dislikes,
+    isPaidOnly,
+    frontendQuestionId,
+    exampleTestcaseList,
+    hints,
+    acRate,
+    hasSolution,
+    hasVideoSolution,
+    topicTags
+  }: LCProblem) {
+    super({
+      _id,
+      created_at,
+      title,
+      titleSlug,
+      difficulty,
+      content,
+      likes,
+      dislikes,
+      isPaidOnly,
+      frontendQuestionId,
+      exampleTestcaseList,
+      hints,
+      acRate,
+      hasSolution,
+      hasVideoSolution
+    })
+    this.topicTags = topicTags
   }
 }
 
-export interface ProblemResponseAPI extends BaseAPIResponse {}
-
-export interface ProblemTopicsResponseAPI extends BaseAPIResponse {
-  question: {
-    topicTags: { name: string; slug: string }[]
+export class DBProblem extends BaseProblem {
+  topicTags: string[]
+  constructor({
+    _id,
+    created_at,
+    title,
+    titleSlug,
+    difficulty,
+    content,
+    likes,
+    dislikes,
+    isPaidOnly,
+    frontendQuestionId,
+    exampleTestcaseList,
+    hints,
+    acRate,
+    hasSolution,
+    hasVideoSolution,
+    topicTags
+  }: DBProblem) {
+    super({
+      _id,
+      created_at,
+      title,
+      titleSlug,
+      difficulty,
+      content,
+      likes,
+      dislikes,
+      isPaidOnly,
+      frontendQuestionId,
+      exampleTestcaseList,
+      hints,
+      acRate,
+      hasSolution,
+      hasVideoSolution
+    })
+    this.topicTags = topicTags
   }
-}
-
-export interface SimilarQuestion {
-  title: string
-  titleSlug: string
-  difficulty: 'Easy' | 'Medium' | 'Hard'
-  translatedTitle: string | null
 }

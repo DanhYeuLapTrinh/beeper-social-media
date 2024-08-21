@@ -1,14 +1,17 @@
 import { type ClassValue, clsx } from 'clsx'
 import { UserFormType } from '@/constants/forms'
 import { twMerge } from 'tailwind-merge'
+import { ColumnDef } from '@tanstack/react-table'
+import { ColumnDefinition } from '@/constants/columns'
+import { Difficulty } from '@/models/problem.model'
 
 /**
  * Hàm giúp nối các className Tailwind lại với nhau
- * @param inputs: ClassValue[] (string)
+ * @param inputs: ClassValue[]
  * @example
  * <div className={cn('text-red-500', 'bg-blue-500')} />
  * @returns thẻ div với className="text-red-500 bg-blue-500"
- * @author Nguyen Huu Danh
+ * @author DanhYeuLapTrinh
  * @version 1.0.1.0 [version] [subChange] [delivery] [fixBug]
  * Version 1 chưa có sự thay đổi lớn (>90%) đã delivery và chưa fixBug
  */
@@ -18,10 +21,10 @@ export const cn = (...inputs: ClassValue[]) => {
 
 /**
  * Hàm nhận vào email và trả về email đã censored
- * @param inputs: email (string)
+ * @param inputs: email: string
  * @example demo@gmail.com
  * @returns demo****@gmail.com
- * @author Nguyen Huu Danh
+ * @author DanhYeuLapTrinh
  * @version 1.0.1.0
  */
 export const maskEmail = (email: string) => {
@@ -30,6 +33,14 @@ export const maskEmail = (email: string) => {
   return `${maskedLocalPart}@${domain}`
 }
 
+/**
+ * Hàm nhận vào code string của Clerk và trả về error message tương ứng
+ * @param inputs: code: string
+ * @example form_code_incorrect
+ * @returns incorrect_code
+ * @author DanhYeuLapTrinh
+ * @version 1.0.1.0
+ */
 export const getClerkError = (code: string) => {
   switch (code) {
     case 'form_code_incorrect':
@@ -49,6 +60,14 @@ export const getClerkError = (code: string) => {
   }
 }
 
+/**
+ * Hàm nhận vào password và trả về true nếu password đủ mạnh, ngược lại trả về false
+ * @param inputs: password: string
+ * @example password
+ * @returns false
+ * @author DanhYeuLapTrinh
+ * @version 1.0.1.0
+ */
 export const validatePasswordStrength = (password: string) => {
   const hasUppercase = /[A-Z]/.test(password)
   const hasLowercase = /[a-z]/.test(password)
@@ -58,6 +77,24 @@ export const validatePasswordStrength = (password: string) => {
   return hasUppercase && hasLowercase && hasNumber && hasSpecialChar
 }
 
+/**
+ * Hàm nhận vào mảng các field và trả về mảng 2 chiều các field đã được chia layout
+ * @param inputs: fields: UserFormType[]
+ * @example [{
+    id: 1,
+    type: 'text',
+    inputType: 'input',
+    label: 'last_name',
+    placeholder: '',
+    name: 'lastName',
+    autoFocus: true,
+    layout: 'row',
+    optional: true
+  }]
+ * @returns UserFormType[][]
+ * @author DanhYeuLapTrinh
+ * @version 1.0.1.0
+ */
 export const renderForm = (fields: UserFormType[]): UserFormType[][] => {
   const rows: UserFormType[][] = []
   let currentRow: UserFormType[] = []
@@ -89,7 +126,15 @@ export const renderForm = (fields: UserFormType[]): UserFormType[][] => {
   return rows
 }
 
-export const getDifficultyColor = (difficulty: 'Easy' | 'Medium' | 'Hard') => {
+/**
+ * Hàm nhận vào mức độ khó và trả về màu tương ứng
+ * @param inputs: difficulty: Difficulty
+ * @example Easy
+ * @returns text-teal-500
+ * @author DanhYeuLapTrinh
+ * @version 1.0.1.0
+ */
+export const getDifficultyColor = (difficulty: Difficulty) => {
   switch (difficulty) {
     case 'Easy':
       return 'text-teal-500'
@@ -98,4 +143,33 @@ export const getDifficultyColor = (difficulty: 'Easy' | 'Medium' | 'Hard') => {
     case 'Hard':
       return 'text-red-500'
   }
+}
+
+/**
+ * Hàm nhận vào các cột và trả về các cột đã được format cho data table
+ * @param inputs: columns: ColumnDefinition<T>[] isLoading: boolean
+ * @example
+ * @returns ColumnDef<T>[]
+ * @author DanhYeuLapTrinh
+ * @version 1.0.1.0
+ */
+export const getColumns = <T>({
+  columns,
+  isLoading
+}: {
+  columns: ColumnDefinition<T>[]
+  isLoading: boolean
+}): ColumnDef<T>[] => {
+  return columns.map(({ accessorKey, loadingComponent, customCell, ...rest }) => ({
+    ...rest,
+    cell: ({ row }) => {
+      if (isLoading) {
+        return loadingComponent
+      } else if (customCell) {
+        return customCell(row.original)
+      } else {
+        return row.original[accessorKey]
+      }
+    }
+  })) as ColumnDef<T>[]
 }

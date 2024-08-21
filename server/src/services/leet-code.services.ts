@@ -10,6 +10,7 @@ import { Filter } from '@/models/base.model'
 import { TitleSlugParamsAPI } from '@/models/api/leet-code/requests'
 import { config } from 'dotenv'
 import { GET_QUESTION_QUERY, GET_QUESTION_TOPIC_TAGS_QUERY, GET_QUESTIONS_QUERY } from '@/models/api/leet-code/queries'
+import { omit } from 'lodash'
 
 config()
 
@@ -28,7 +29,11 @@ class LeetCodeService {
         ...questionData.question,
         topicTags: questionTopicTags.question.topicTags.map((tag) => tag.slug)
       })
-      await dbService.questions.insertOne(question)
+      await dbService.questions.updateOne(
+        { titleSlug: question.titleSlug },
+        { $set: omit(question, ['_id']) },
+        { upsert: true }
+      )
       // Check if topic tags exist in the database then update them otherwise insert them
       for (const tag of questionTopicTags.question.topicTags) {
         await dbService.topicTags.updateOne({ slug: tag.slug }, { $set: tag }, { upsert: true })
@@ -39,13 +44,18 @@ class LeetCodeService {
   }
   // Get questions
   async getQuestions(variables: Filter) {
-    const { data } = await leetCodeAxios.post<LeetCodeQuestions>('', {
+    const {
+      data: { data }
+    } = await leetCodeAxios.post<LeetCodeQuestions>('', {
       query: GET_QUESTIONS_QUERY,
       variables
     })
-    return data
+    return {
+      questions: data.questions.questions,
+      total: data.questions.total
+    }
   }
-  // Get question
+  // Get LC question
   async getQuestion(variables: TitleSlugParamsAPI) {
     const { data } = await leetCodeAxios.post<LeetCodeQuestion>('', {
       query: GET_QUESTION_QUERY,
@@ -60,6 +70,11 @@ class LeetCodeService {
       variables
     })
     return data
+  }
+  // Get topic tags from DB
+  async getTopicTags(topicTags: string[]) {
+    const topicTagsData = await dbService.topicTags.find({ slug: { $in: topicTags } }).toArray()
+    return { topicTags: topicTagsData }
   }
 }
 
