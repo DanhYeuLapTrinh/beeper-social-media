@@ -1,3 +1,6 @@
+import dbServices from '@/services/db.services'
+import questionServices from '@/services/question.services'
+import redisServices from '@/services/redis.services'
 import { CACHE_KEYS, ROUTES } from '@/constants'
 import {
   getQuestionContentController,
@@ -5,10 +8,13 @@ import {
   getQuestionHintsController,
   getQuestionsController,
   getQuestionTestcaseController,
-  getQuestionTopicsController
-} from '@/controllers/leet-code.controller'
-import { getCachedDataMiddleware, getQuestionInDBMiddleware } from '@/middlewares/common.middleware'
-import { getQuestionsMiddleware } from '@/middlewares/question.middleware'
+  getQuestionTopicsController,
+  getSimilarQuestionsController
+} from '@/controllers/leet-code.controllers'
+import { getCachedDataMiddleware, getQuestionInDBMiddleware } from '@/middlewares/common.middlewares'
+import { getQuestionsMiddleware } from '@/middlewares/question.middlewares'
+import { DBQuestion } from '@/models/question.model'
+import { saveDataToCache } from '@/utils'
 import { errorHandler } from '@/utils/handler'
 import { config } from 'dotenv'
 import { Router } from 'express'
@@ -16,37 +22,69 @@ import { Router } from 'express'
 config()
 
 const leetCodeRoutes = Router()
-
+// Get questions
 leetCodeRoutes.post(ROUTES.LEET_CODE.ALL, getQuestionsMiddleware, errorHandler(getQuestionsController))
+
+// Get question header
 leetCodeRoutes.get(
   ROUTES.LEET_CODE.QUESTION,
-  getCachedDataMiddleware(CACHE_KEYS.QUESTION.PREFIX, CACHE_KEYS.QUESTION.HEADER),
+  getCachedDataMiddleware({
+    prefix: CACHE_KEYS.QUESTION.PREFIX,
+    fieldName: CACHE_KEYS.QUESTION.HEADER
+  }),
   getQuestionInDBMiddleware,
   errorHandler(getQuestionHeaderController)
 )
+
+// Get question content
 leetCodeRoutes.get(
   ROUTES.LEET_CODE.CONTENT,
-  getCachedDataMiddleware(CACHE_KEYS.QUESTION.PREFIX, CACHE_KEYS.QUESTION.CONTENT),
+  getCachedDataMiddleware({
+    prefix: CACHE_KEYS.QUESTION.PREFIX,
+    fieldName: CACHE_KEYS.QUESTION.CONTENT
+  }),
   getQuestionInDBMiddleware,
   errorHandler(getQuestionContentController)
 )
+
+// Get question topic
 leetCodeRoutes.get(
   ROUTES.LEET_CODE.TOPIC,
-  getCachedDataMiddleware(CACHE_KEYS.QUESTION.PREFIX, CACHE_KEYS.QUESTION.TOPIC),
+  getCachedDataMiddleware({
+    prefix: CACHE_KEYS.QUESTION.PREFIX,
+    fieldName: CACHE_KEYS.QUESTION.TOPIC
+  }),
   getQuestionInDBMiddleware,
   errorHandler(getQuestionTopicsController)
 )
+
+// Get question hints
 leetCodeRoutes.get(
   ROUTES.LEET_CODE.HINTS,
-  getCachedDataMiddleware(CACHE_KEYS.QUESTION.PREFIX, CACHE_KEYS.QUESTION.HINTS),
+  getCachedDataMiddleware({
+    prefix: CACHE_KEYS.QUESTION.PREFIX,
+    fieldName: CACHE_KEYS.QUESTION.HINTS
+  }),
   getQuestionInDBMiddleware,
   errorHandler(getQuestionHintsController)
 )
+
+// Get question test case
 leetCodeRoutes.get(
   ROUTES.LEET_CODE.TEST_CASE,
-  getCachedDataMiddleware(CACHE_KEYS.QUESTION.PREFIX, CACHE_KEYS.QUESTION.TEST_CASE),
+  getCachedDataMiddleware({
+    prefix: CACHE_KEYS.QUESTION.PREFIX,
+    fieldName: CACHE_KEYS.QUESTION.TEST_CASE
+  }),
   getQuestionInDBMiddleware,
   errorHandler(getQuestionTestcaseController)
+)
+
+// Get question similar questions
+leetCodeRoutes.get(
+  ROUTES.LEET_CODE.SIMILAR_QUESTIONS,
+  getQuestionInDBMiddleware,
+  errorHandler(getSimilarQuestionsController)
 )
 
 export default leetCodeRoutes

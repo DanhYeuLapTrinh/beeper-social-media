@@ -1,4 +1,4 @@
-import dbService from '@/services/db.services'
+import dbServices from '@/services/db.services'
 import { AuthError } from '@/models/api/error'
 import { TokenPayload } from '@/models/token.model'
 import { validate } from '@/utils/validator'
@@ -32,7 +32,7 @@ export const accessTokenMiddleware = validate(
             const decoded_token = (await clerkClient.verifyToken(access_token as string)) as TokenPayload
 
             // Find the user in the database
-            const user = await dbService.users.findOne({ _id: new ObjectId(decoded_token.mongo_id) })
+            const user = await dbServices.users.findOne({ _id: new ObjectId(decoded_token.mongo_id) })
 
             // If the user is not found, throw an error
             if (!user) {

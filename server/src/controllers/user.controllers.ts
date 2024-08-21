@@ -1,6 +1,6 @@
 import userServices from '@/services/user.services'
 import { RESPONSE_MESSAGES } from '@/constants'
-import { clerkClient } from '@/middlewares/user.middleware'
+import { clerkClient } from '@/middlewares/user.middlewares'
 import { TokenPayload } from '@/models/token.model'
 import { sendResponse } from '@/utils'
 import { Request, Response } from 'express'

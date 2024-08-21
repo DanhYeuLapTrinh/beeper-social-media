@@ -1,11 +1,11 @@
 import userRoutes from '@/routes/user.routes'
-import leetCodeRoutes from './routes/leet-code.routes'
-import dbService from '@/services/db.services'
+import leetCodeRoutes from '@/routes/leet-code.routes'
+import dbServices from '@/services/db.services'
 import cors from 'cors'
-import redisService from './services/redis.services'
+import redisServices from '@/services/redis.services'
 import express, { Router } from 'express'
 import { ROUTES } from '@/constants'
-import { defaultErrorHanler } from '@/middlewares/error.middleware'
+import { defaultErrorHanler } from '@/middlewares/error.middlewares'
 import { config } from 'dotenv'
 
 config()
@@ -14,8 +14,8 @@ const app = express()
 const apiRouter = Router()
 const PORT = process.env.PORT || 5000
 
-dbService.connectToDB()
-redisService.initRedis()
+dbServices.connectToDB()
+redisServices.initRedis()
 
 app.use(express.json())
 app.use(cors())

@@ -11,8 +11,8 @@ import { useNavigate } from 'react-router-dom'
 import { TopicTag } from '@/models/base.model'
 
 interface GetProblemAccordionProps {
-  topics: TopicTag[]
-  hints: string[]
+  topics: TopicTag[] | undefined
+  hints: string[] | undefined
 }
 
 export default function ProblemAccordion({ hints, topics }: GetProblemAccordionProps) {
@@ -33,11 +33,12 @@ export default function ProblemAccordion({ hints, topics }: GetProblemAccordionP
           case 'topics':
             content = (
               <div className='flex items-center gap-2'>
-                {topics.map((topic) => (
-                  <Badge key={topic.slug} variant='secondary'>
-                    {topic.name}
-                  </Badge>
-                ))}
+                {topics &&
+                  topics.map((topic) => (
+                    <Badge key={topic.slug} variant='secondary'>
+                      {topic.name}
+                    </Badge>
+                  ))}
               </div>
             )
             break
@@ -56,7 +57,7 @@ export default function ProblemAccordion({ hints, topics }: GetProblemAccordionP
           //   )
         }
         if (item.name === 'hints') {
-          if (hints.length > 0) {
+          if (hints && hints.length > 0) {
             return (
               <div key={item.id}>
                 {hints.map((hint, index) => (

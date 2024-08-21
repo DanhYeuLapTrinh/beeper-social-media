@@ -10,7 +10,7 @@ if (!process.env.REDIS_HOST || !process.env.REDIS_PASSWORD) {
 
 const CONNECT_TIMEOUT = 10000
 
-class RedisService {
+class RedisServices {
   private client: RedisClientType
   private connectTimeout: NodeJS.Timeout
 
@@ -71,5 +71,5 @@ class RedisService {
   }
 }
 
-const redisService = new RedisService()
-export default redisService
+const redisServices = new RedisServices()
+export default redisServices
