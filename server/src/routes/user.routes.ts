@@ -1,5 +1,5 @@
-import { getMeController } from '@/controllers/user.controller'
-import { accessTokenMiddleware } from '@/middlewares/user.middleware'
+import { getMeController } from '@/controllers/user.controllers'
+import { accessTokenMiddleware } from '@/middlewares/user.middlewares'
 import { errorHandler } from '@/utils/handler'
 import { config } from 'dotenv'
 import { Router } from 'express'

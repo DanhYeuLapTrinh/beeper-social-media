@@ -1,9 +1,9 @@
-import dbService from './db.services'
+import dbServices from './db.services'
 import { ObjectId } from 'mongodb'
 
 class UserServices {
   async getMe(user_id: string) {
-    const user = await dbService.users.findOne(
+    const user = await dbServices.users.findOne(
       { _id: new ObjectId(user_id) },
       {
         projection: {

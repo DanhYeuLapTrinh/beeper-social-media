@@ -10,7 +10,7 @@ config()
 if (!process.env.MONGODB_URI || !process.env.MONGODB_NAME) {
   throw new Error('MONGODB credentials are not defined')
 }
-class DBService {
+class DBServices {
   private client: MongoClient
   private db: Db
   constructor() {
@@ -42,5 +42,5 @@ class DBService {
   }
 }
 
-const dbService = new DBService()
-export default dbService
+const dbServices = new DBServices()
+export default dbServices

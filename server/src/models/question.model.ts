@@ -2,6 +2,7 @@ import { BaseQuestion, TopicTag } from './base.model'
 
 export class LCQuestion extends BaseQuestion {
   topicTags: TopicTag[]
+  status: string | null
   constructor({
     _id,
     title,
@@ -17,7 +18,8 @@ export class LCQuestion extends BaseQuestion {
     acRate,
     hasSolution,
     hasVideoSolution,
-    topicTags
+    topicTags,
+    status
   }: LCQuestion) {
     super({
       _id,
@@ -36,6 +38,7 @@ export class LCQuestion extends BaseQuestion {
       hasVideoSolution
     })
     this.topicTags = topicTags
+    this.status = status
   }
 }
 

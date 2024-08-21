@@ -14,6 +14,7 @@ export const ROUTES = {
     TOPIC: '/:titleSlug/topic',
     HINTS: '/:titleSlug/hints',
     TEST_CASE: '/:titleSlug/testcase',
+    SIMILAR_QUESTIONS: '/:titleSlug/similar-questions',
     QUESTION_OF_TODAY: '/question-of-today'
   }
 }
@@ -79,6 +80,7 @@ export const CACHE_KEYS = {
     CONTENT: 'content',
     TOPIC: 'topic',
     HINTS: 'hints',
-    TEST_CASE: 'testcase'
+    TEST_CASE: 'testcase',
+    SIMILAR_QUESTIONS: 'similar-questions'
   }
 }
