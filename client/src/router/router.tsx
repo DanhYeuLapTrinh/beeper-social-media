@@ -8,8 +8,9 @@ import DefaultLayout from '@/layouts/default.layout'
 import GuardLayout from '@/layouts/guard.layout'
 import WorkspaceLayout from '@/layouts/workspace.layout'
 import Home from '@/pages/home'
-import NotFound from '@/pages/not-found'
 import SSOCallback from '@/pages/sso-callback'
+import ErrorPage from '@/pages/error'
+import ErrorProvider from '@/components/providers/error.provider'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { ROUTES } from '.'
 
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTES.PUBLIC.NOT_FOUND,
-        element: <NotFound />
+        element: <ErrorPage text='back' />
       },
       {
         element: <GuardLayout />,
@@ -39,7 +40,11 @@ const router = createBrowserRouter([
         ]
       },
       {
-        element: <WorkspaceLayout />,
+        element: (
+          <ErrorProvider>
+            <WorkspaceLayout />
+          </ErrorProvider>
+        ),
         children: [
           {
             path: ROUTES.PRIVATE.WORKSPACE_ID,

@@ -36,6 +36,7 @@ export default function FormGenerator({
   optional
 }: FormGeneratorProps) {
   const { t } = useTranslation()
+
   switch (inputType) {
     case 'checkbox':
       return (

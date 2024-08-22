@@ -1,3 +1,5 @@
+import { Difficulty } from './problem.model'
+
 export class BaseModel {
   _id?: string
   created_at?: Date
@@ -5,26 +7,6 @@ export class BaseModel {
 
 export interface BaseAPIResponse {
   message: string
-}
-
-export type Difficulty = 'Easy' | 'Medium' | 'Hard'
-
-export interface Filter {
-  difficulty: string
-  listId: string
-  status: string
-  tags: string[]
-}
-
-export class TopicTag extends BaseModel {
-  name: string
-  slug: string
-  constructor({ _id, name, slug }: TopicTag) {
-    super()
-    this._id = _id
-    this.name = name
-    this.slug = slug
-  }
 }
 
 // Base Model
@@ -35,7 +17,7 @@ export class BaseProblem extends BaseModel {
   content: string
   likes: number
   dislikes: number
-  isPaidOnly: number
+  isPaidOnly: boolean
   frontendQuestionId: number
   exampleTestcaseList: string[]
   hints: string[]

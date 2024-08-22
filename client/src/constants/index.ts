@@ -14,8 +14,8 @@ export const TOGGLE_SIZE_PANEL = 5
 export const EXPAND_DESC_SIZE_PANEL = 95
 export const FULL_SIZE_PANEL = 100
 export const DEFAULT_SIZE_PANEL = 50
-export const DEFAULT_CODE_SIZE_PANEL = 65
-export const DEFAULT_TEST_CASE_SIZE_PANEL = 35
+export const DEFAULT_CODE_SIZE_PANEL = 50
+export const DEFAULT_TEST_CASE_SIZE_PANEL = 50
 
 export const LANGUAGES: Record<string, any> = {
   javascript: {
@@ -46,10 +46,6 @@ export const LANGUAGES: Record<string, any> = {
 
 export const PROBLEM_QUERIES = [
   {
-    queryKey: ['problemHeader'],
-    params: ''
-  },
-  {
     queryKey: ['problemContent', 'content'],
     params: 'content'
   },
@@ -60,5 +56,9 @@ export const PROBLEM_QUERIES = [
   {
     queryKey: ['problemHints', 'hints'],
     params: 'hints'
+  },
+  {
+    queryKey: ['problemSimilarQuestions', 'similarQuestions'],
+    params: 'similar-questions'
   }
 ]

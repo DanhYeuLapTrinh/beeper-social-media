@@ -67,6 +67,7 @@
     "solutions": "Solutions",
     "submissions": "Submissions",
     "code": "Code",
-    "test_case": "Testcase"
+    "test_case": "Testcase",
+    "try_again": "Try again"
   }
 }

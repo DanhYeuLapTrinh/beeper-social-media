@@ -1,7 +1,7 @@
 import { Label } from '@/components/ui/label'
 import { Skeleton } from '@/components/ui/skeleton'
 import { getDifficultyColor } from '@/lib/utils'
-import { Problem } from '@/models/problem.model'
+import { LCProblem } from '@/models/problem.model'
 import { LuFileCheck, LuFileVideo } from 'react-icons/lu'
 import { Link } from 'react-router-dom'
 
@@ -17,7 +17,7 @@ export interface ColumnDefinition<T> {
   }
 }
 
-export const PROBLEMS_TABLE_HEADERS: ColumnDefinition<Problem>[] = [
+export const PROBLEMS_TABLE_HEADERS: ColumnDefinition<LCProblem>[] = [
   {
     accessorKey: 'status',
     header: 'Status',
@@ -27,9 +27,9 @@ export const PROBLEMS_TABLE_HEADERS: ColumnDefinition<Problem>[] = [
     accessorKey: 'title',
     header: 'Title',
     loadingComponent: <Skeleton className='w-20 h-6 rounded-full' />,
-    customCell: (problem: Problem) => (
+    customCell: (problem: LCProblem) => (
       <Link to={`/workspace/${problem.titleSlug}`}>
-        <Label className='hover:text-primary cursor-pointer'>{problem.title}</Label>
+        <Label className='hover:text-primary cursor-pointer'>{problem.frontendQuestionId + '. ' + problem.title}</Label>
       </Link>
     )
   },
@@ -37,7 +37,7 @@ export const PROBLEMS_TABLE_HEADERS: ColumnDefinition<Problem>[] = [
     accessorKey: 'hasSolution',
     header: 'Solution',
     loadingComponent: <Skeleton className='w-20 h-6 rounded-full' />,
-    customCell: (problem: Problem) => (
+    customCell: (problem: LCProblem) => (
       <div className='flex items-center'>
         {problem.hasSolution && problem.hasVideoSolution ? (
           <LuFileVideo className='text-purple-500 w-5 h-5' />
@@ -51,12 +51,12 @@ export const PROBLEMS_TABLE_HEADERS: ColumnDefinition<Problem>[] = [
     accessorKey: 'acRate',
     header: 'Acceptance',
     loadingComponent: <Skeleton className='w-6 h-6 rounded-full' />,
-    customCell: (problem: Problem) => <p>{problem.acRate?.toFixed(1)}%</p>
+    customCell: (problem: LCProblem) => <p>{problem.acRate?.toFixed(1)}%</p>
   },
   {
     accessorKey: 'difficulty',
     header: 'Difficulty',
     loadingComponent: <Skeleton className='w-20 h-6 rounded-full' />,
-    customCell: (problem: Problem) => <p className={getDifficultyColor(problem.difficulty)}>{problem.difficulty}</p>
+    customCell: (problem: LCProblem) => <p className={getDifficultyColor(problem.difficulty)}>{problem.difficulty}</p>
   }
 ]
