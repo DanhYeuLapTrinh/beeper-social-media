@@ -33,7 +33,7 @@ export class BaseQuestion extends BaseModel {
   content: string
   likes: number
   dislikes: number
-  isPaidOnly: number
+  isPaidOnly: boolean
   frontendQuestionId: number
   exampleTestcaseList: string[]
   hints: string[]
