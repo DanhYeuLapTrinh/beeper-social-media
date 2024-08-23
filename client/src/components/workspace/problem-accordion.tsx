@@ -1,5 +1,5 @@
 import parse from 'html-react-parser'
-import styles from '../get-problem-detail/get-problem-detail.module.scss'
+import styles from '@/features/problems/get-problem-detail/get-problem-detail.module.scss'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Badge } from '@/components/ui/badge'
 import { PROBLEM_ACCORDION_ITEMS } from '@/constants/menu-items'
@@ -8,14 +8,16 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { getDifficultyColor } from '@/lib/utils'
 import { useNavigate } from 'react-router-dom'
-import { TopicTag } from '@/models/base.model'
+import { SimilarQuestion, TopicTag } from '@/models/problem.model'
+import { RiLockFill } from 'react-icons/ri'
 
 interface GetProblemAccordionProps {
   topics: TopicTag[] | undefined
   hints: string[] | undefined
+  similarQuestions: SimilarQuestion[] | undefined
 }
 
-export default function ProblemAccordion({ hints, topics }: GetProblemAccordionProps) {
+export default function ProblemAccordion({ hints, topics, similarQuestions }: GetProblemAccordionProps) {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
@@ -28,7 +30,6 @@ export default function ProblemAccordion({ hints, topics }: GetProblemAccordionP
     <div className='mt-24'>
       {PROBLEM_ACCORDION_ITEMS.map((item) => {
         let content = null
-        // const similarQuestions: SimilarQuestion[] = JSON.parse(data.question.similarQuestions)
         switch (item.name) {
           case 'topics':
             content = (
@@ -42,19 +43,23 @@ export default function ProblemAccordion({ hints, topics }: GetProblemAccordionP
               </div>
             )
             break
-          // case 'similar_questions':
-          //   content = (
-          //     <div className='flex flex-col gap-2'>
-          //       {similarQuestions.map((item) => (
-          //         <div key={item.titleSlug} className='flex justify-between pl-[16px]'>
-          //           <Button variant='link' onClick={() => handleNavigate(item.titleSlug)}>
-          //             {item.title}
-          //           </Button>
-          //           <Label className={getDifficultyColor(item.difficulty)}>{item.difficulty}</Label>
-          //         </div>
-          //       ))}
-          //     </div>
-          //   )
+          case 'similar_questions':
+            content = (
+              <div className='flex flex-col gap-2'>
+                {similarQuestions &&
+                  similarQuestions.map((item) => (
+                    <div key={item.titleSlug} className='flex justify-between pl-[16px]'>
+                      <div className='flex items-center'>
+                        <Button variant='link' onClick={() => handleNavigate(item.titleSlug)}>
+                          {item.title}
+                        </Button>
+                        {item.isPaidOnly && <RiLockFill className='text-amber-500 w-4 h-4' />}
+                      </div>
+                      <Label className={getDifficultyColor(item.difficulty)}>{item.difficulty}</Label>
+                    </div>
+                  ))}
+              </div>
+            )
         }
         if (item.name === 'hints') {
           if (hints && hints.length > 0) {

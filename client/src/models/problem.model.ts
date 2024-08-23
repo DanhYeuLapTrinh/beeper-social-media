@@ -1,7 +1,35 @@
-import { BaseProblem, TopicTag } from './base.model'
+import { BaseModel, BaseProblem } from './base.model'
+
+export type Difficulty = 'Easy' | 'Medium' | 'Hard'
+
+export interface Filter {
+  difficulty: string
+  listId: string
+  status: string
+  tags: string[]
+}
+
+export interface GetProblemsFilter {
+  categorySlug: string
+  limit: number
+  skip: number
+  filters: Filter | object
+}
+
+export class TopicTag extends BaseModel {
+  name: string
+  slug: string
+  constructor({ _id, name, slug }: TopicTag) {
+    super()
+    this._id = _id
+    this.name = name
+    this.slug = slug
+  }
+}
 
 export class LCProblem extends BaseProblem {
   topicTags: TopicTag[]
+  status: string | null
   constructor({
     _id,
     created_at,
@@ -18,7 +46,8 @@ export class LCProblem extends BaseProblem {
     acRate,
     hasSolution,
     hasVideoSolution,
-    topicTags
+    topicTags,
+    status
   }: LCProblem) {
     super({
       _id,
@@ -38,6 +67,7 @@ export class LCProblem extends BaseProblem {
       hasVideoSolution
     })
     this.topicTags = topicTags
+    this.status = status
   }
 }
 
@@ -80,4 +110,12 @@ export class DBProblem extends BaseProblem {
     })
     this.topicTags = topicTags
   }
+}
+
+export interface SimilarQuestion {
+  _id: string
+  title: string
+  titleSlug: string
+  difficulty: Difficulty
+  isPaidOnly: boolean
 }
