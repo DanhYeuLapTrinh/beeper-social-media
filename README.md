@@ -9,6 +9,5 @@ A full-stack LeetCode clone app that integrates with LeetCode's GraphQL API to r
 + Authentication and authorization with Clerk
 + Centralizing state management with Redux Toolkit
 + Multi-language with i18next and Localazy
-+ Caching with Redis
-
-+ updating...
++ Redis for caching and RabbitMQ for queuing
++ Isolated code execution with Docker
