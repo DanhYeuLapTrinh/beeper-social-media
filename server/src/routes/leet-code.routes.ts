@@ -1,6 +1,3 @@
-import dbServices from '@/services/db.services'
-import questionServices from '@/services/question.services'
-import redisServices from '@/services/redis.services'
 import { CACHE_KEYS, ROUTES } from '@/constants'
 import {
   getQuestionContentController,
@@ -13,8 +10,6 @@ import {
 } from '@/controllers/leet-code.controllers'
 import { getCachedDataMiddleware, getQuestionInDBMiddleware } from '@/middlewares/common.middlewares'
 import { getQuestionsMiddleware } from '@/middlewares/question.middlewares'
-import { DBQuestion } from '@/models/question.model'
-import { saveDataToCache } from '@/utils'
 import { errorHandler } from '@/utils/handler'
 import { config } from 'dotenv'
 import { Router } from 'express'

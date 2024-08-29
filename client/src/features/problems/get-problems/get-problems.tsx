@@ -9,7 +9,7 @@ export default function GetProblems() {
   const { mutate, isPending, data } = useProblems()
 
   useEffect(() => {
-    mutate()
+    mutate(undefined)
   }, [mutate])
 
   const columns = getColumns<LCProblem>({
@@ -19,7 +19,7 @@ export default function GetProblems() {
 
   return (
     <div className='w-[1000px] mx-auto my-10'>
-      <DataTable columns={columns} data={data?.data.questions} />
+      <DataTable columns={columns} data={data?.data.questions} total={data?.data.total} pageFunction={mutate} />
     </div>
   )
 }
