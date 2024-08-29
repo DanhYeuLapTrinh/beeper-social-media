@@ -42,7 +42,15 @@ export const getQuestionInDBMiddleware = async (
       })
       await dbServices.questions.updateOne(
         { titleSlug: question.titleSlug },
-        { $set: omit(question, ['_id']) },
+        {
+          $set: omit(
+            {
+              ...question,
+              isPaidOnly: Math.random() < 0.7 ? false : true
+            },
+            ['_id']
+          )
+        },
         { upsert: true }
       )
       // Check if topic tags exist in the database then update them otherwise insert them
